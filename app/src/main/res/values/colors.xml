@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F16079</color>
+    <color name="colorPrimaryDark">#F16079</color>
+    <color name="colorAccent">#66CDAA</color>
+
+    <color name="tab_color">@color/colorPrimaryDark</color>
+    <color name="main">@color/colorPrimaryDark</color>
+    <color name="white">#ffffff</color>
+    <color name="gray_light">#BEBEBE</color>
+    <color name="gray">#ADADAD</color>
+    <color name="black">#000000</color>
+
+</resources>

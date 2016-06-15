@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ZuiHao</string>
+
+    <string name="mian_tab_name">首页</string>
+    <string name="all_tab_name">全部商品</string>
+    <string name="new_tab_name">最新揭晓</string>
+    <string name="cart_tab_name">购物车</string>
+    <string name="mine_tab_name">我的</string>
+
+    <string name="search_hini">搜索</string>
+    <string name="add_favoitor">添加兴趣</string>
+
+    <string name="dialog_ok">知道了</string>
+    <string name="dialog_no">取消</string>
+</resources>

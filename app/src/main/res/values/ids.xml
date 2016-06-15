@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="main_bottom_navigation" type="id"/>
+    <item name="main_content" type="id"/>
+
+    <item name="main_search" type="id"/>
+    <item name="main_toolbar" type="id"/>
+    <item name="main_menu" type="id"/>
+</resources>
