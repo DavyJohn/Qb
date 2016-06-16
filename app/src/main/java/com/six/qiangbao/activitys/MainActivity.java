@@ -1,4 +1,4 @@
-package com.six.zuihao.activitys;
+package com.six.qiangbao.activitys;
 
 import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
@@ -7,13 +7,13 @@ import android.os.Bundle;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.six.zuihao.BaseActivity;
-import com.six.zuihao.R;
-import com.six.zuihao.fragments.cart.CartFragment;
-import com.six.zuihao.fragments.newst.NewFragment;
-import com.six.zuihao.fragments.all.AllFragment;
-import com.six.zuihao.fragments.main.MainFragment;
-import com.six.zuihao.fragments.mine.MineFragment;
+import com.six.qiangbao.BaseActivity;
+import com.six.qiangbao.R;
+import com.six.qiangbao.fragments.cart.CartFragment;
+import com.six.qiangbao.fragments.newst.NewFragment;
+import com.six.qiangbao.fragments.all.AllFragment;
+import com.six.qiangbao.fragments.main.MainFragment;
+import com.six.qiangbao.fragments.mine.MineFragment;
 
 import butterknife.Bind;
 

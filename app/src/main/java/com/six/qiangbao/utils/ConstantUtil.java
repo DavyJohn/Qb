@@ -1,4 +1,4 @@
-package com.six.zuihao.utils;
+package com.six.qiangbao.utils;
 
 /**
  * Created by yyx on 16/5/21.

@@ -1,4 +1,4 @@
-package com.six.zuihao.permission;
+package com.six.qiangbao.permission;
 
 import java.util.ArrayList;
 import java.util.HashMap;

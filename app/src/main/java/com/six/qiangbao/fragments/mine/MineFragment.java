@@ -1,4 +1,4 @@
-package com.six.zuihao.fragments.mine;
+package com.six.qiangbao.fragments.mine;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.six.zuihao.BaseFragment;
-import com.six.zuihao.R;
-import com.six.zuihao.activitys.MainActivity;
+import com.six.qiangbao.BaseFragment;
+import com.six.qiangbao.R;
+import com.six.qiangbao.activitys.MainActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

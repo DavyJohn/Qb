@@ -1,12 +1,9 @@
-package com.six.zuihao;
+package com.six.qiangbao;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.saint.netlibrary.BangHttpClient;
@@ -14,6 +11,7 @@ import com.saint.netlibrary.BangHttpClient;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
+import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
@@ -21,7 +19,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by yyx on 16/5/20.
  */
-public class BaseFragment extends Fragment {
+public class BaseActivity extends AppCompatActivity {
 
     /**
      * 使用CompositeSubscription来持有所有的Subscriptions
@@ -30,34 +28,27 @@ public class BaseFragment extends Fragment {
 
     private MaterialDialog progressDialog;
 
-    protected Context context;
-
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        context = getActivity();
         mCompositeSubscription = new CompositeSubscription();
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        ButterKnife.bind(this);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
+        ButterKnife.unbind(this);
         mCompositeSubscription.unsubscribe();
     }
 
     protected void showDialog(String title,String msg){
-        new MaterialDialog.Builder(context)
+        new MaterialDialog.Builder(this)
                 .title(title)
                 .content(msg)
                 .positiveText(R.string.dialog_ok)
@@ -68,7 +59,7 @@ public class BaseFragment extends Fragment {
         if (progressDialog != null){
             progressDialog.show();
         }else {
-            progressDialog = new MaterialDialog.Builder(context)
+            progressDialog = new MaterialDialog.Builder(this)
                     .title("")
                     .content(msg)
                     .progress(true,2)

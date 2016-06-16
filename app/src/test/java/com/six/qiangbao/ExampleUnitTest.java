@@ -1,4 +1,4 @@
-package com.six.zuihao;
+package com.six.qiangbao;
 
 import org.junit.Test;
 

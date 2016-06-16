@@ -1,4 +1,4 @@
-package com.six.zuihao.permission;
+package com.six.qiangbao.permission;
 
 public interface PermissionListener {
 

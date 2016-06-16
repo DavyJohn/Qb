@@ -1,4 +1,4 @@
-package com.six.zuihao;
+package com.six.qiangbao;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

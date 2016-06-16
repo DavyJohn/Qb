@@ -1,12 +1,12 @@
-package com.six.zuihao.login;
+package com.six.qiangbao.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.orhanobut.logger.Logger;
-import com.six.zuihao.BaseActivity;
-import com.six.zuihao.R;
+import com.six.qiangbao.BaseActivity;
+import com.six.qiangbao.R;
 import java.util.HashMap;
 
 import butterknife.OnClick;

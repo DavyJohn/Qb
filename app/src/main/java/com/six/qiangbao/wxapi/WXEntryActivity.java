@@ -1,4 +1,4 @@
-package com.six.zuihao.wxapi;
+package com.six.qiangbao.wxapi;
 
 import cn.sharesdk.wechat.utils.WXMediaMessage;
 import cn.sharesdk.wechat.utils.WechatHandlerActivity;

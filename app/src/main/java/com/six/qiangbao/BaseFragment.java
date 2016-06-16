@@ -1,11 +1,12 @@
-package com.six.zuihao;
+package com.six.qiangbao;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.saint.netlibrary.BangHttpClient;
@@ -13,8 +14,6 @@ import com.saint.netlibrary.BangHttpClient;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
-import butterknife.ButterKnife;
-import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
@@ -22,7 +21,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by yyx on 16/5/20.
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseFragment extends Fragment {
 
     /**
      * 使用CompositeSubscription来持有所有的Subscriptions
@@ -31,27 +30,34 @@ public class BaseActivity extends AppCompatActivity {
 
     private MaterialDialog progressDialog;
 
+    protected Context context;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getActivity();
         mCompositeSubscription = new CompositeSubscription();
     }
 
+    @Nullable
     @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        super.setContentView(layoutResID);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
-    protected void onDestroy() {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
         mCompositeSubscription.unsubscribe();
     }
 
     protected void showDialog(String title,String msg){
-        new MaterialDialog.Builder(this)
+        new MaterialDialog.Builder(context)
                 .title(title)
                 .content(msg)
                 .positiveText(R.string.dialog_ok)
@@ -62,7 +68,7 @@ public class BaseActivity extends AppCompatActivity {
         if (progressDialog != null){
             progressDialog.show();
         }else {
-            progressDialog = new MaterialDialog.Builder(this)
+            progressDialog = new MaterialDialog.Builder(context)
                     .title("")
                     .content(msg)
                     .progress(true,2)
