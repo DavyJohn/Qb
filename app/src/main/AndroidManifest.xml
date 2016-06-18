@@ -71,6 +71,24 @@
             android:name="com.six.qiangbao.wxapi.WXEntryActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
+        <activity android:name=".fragments.mine.activity.JuActivity"
+            android:exported="true"/>
+        <activity android:name=".fragments.mine.activity.ShopActivity"
+            android:exported="true"/>
+        <activity android:name=".fragments.mine.activity.ZuActivity"
+            android:exported="true"/>
+        <activity android:name=".fragments.mine.activity.AddressActivity"
+            android:exported="true"/>
+        <activity android:name=".fragments.mine.activity.HbActivity"
+            android:exported="true"/>
+
+        <activity android:name=".fragments.mine.activity.AddAddressActivity"
+            android:exported="true"/>
+        <activity android:name=".fragments.mine.activity.SettingActivity"
+            android:exported="true"/>
+        <activity android:name=".login.RegisterActivity"
+            android:exported="true"/>
+        <activity android:name=".ShopDetialActivity"/>
 
     </application>
 

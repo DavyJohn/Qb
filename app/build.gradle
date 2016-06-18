@@ -38,4 +38,7 @@ dependencies {
     compile project(':netlibrary')
     compile files('libs/libammsdk.jar')
     compile 'com.afollestad.material-dialogs:core:0.8.5.9'
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.leaking.slideswitch:slideswitch:1.0.0'
+    compile 'com.github.JayFang1993:DropDownMenu:v0.9'
 }

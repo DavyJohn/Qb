@@ -11,4 +11,7 @@ public class ConstantUtil {
 
     public static final String WECHAT_APPID = "wxa6a6743951b91366";
     public static final String WECHAT_AppSecret = "522dca92ffad0639371051319517062f";
+
+    public static int isMineChange =0;//0 为未登录 1 其他为登录
+    public static int isImage = 1; //1 为 有图
 }
