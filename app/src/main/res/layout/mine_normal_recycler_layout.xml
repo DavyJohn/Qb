@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="50dp"
+              android:orientation="horizontal"
+    android:background="@color/white">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mine_normal_image"
+        android:src="@drawable/left_icon"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="neirong"
+        android:id="@+id/mine_normal_content"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/right_icon"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"/>
+</LinearLayout>

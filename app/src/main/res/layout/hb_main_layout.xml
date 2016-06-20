@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/main"
+        android:id="@+id/hb_bar">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="30dp"
+           android:orientation="horizontal"
+           android:layout_marginLeft="20dp"
+           android:layout_marginRight="20dp">
+
+           <LinearLayout
+               android:id="@+id/use"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_height="30dp"
+               android:gravity="center"
+               android:background="@drawable/hb_lin1_shape_normal">
+               <TextView
+                   android:id="@+id/use_text"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/white"
+                   android:text="可用"/>
+           </LinearLayout>
+
+           <LinearLayout
+               android:id="@+id/useed"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_height="30dp"
+               android:gravity="center"
+               android:layout_marginLeft="-2dp"
+               android:background="@drawable/hb_lin2_shape_normal">
+               <TextView
+                   android:id="@+id/useed_text"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/white"
+                   android:text="已使用"/>
+           </LinearLayout>
+           <LinearLayout
+               android:id="@+id/time_out"
+               android:layout_width="0dp"
+               android:layout_weight="1"
+               android:layout_height="30dp"
+               android:gravity="center"
+               android:layout_marginLeft="-2dp"
+               android:background="@drawable/hb_lin3_shape_normal">
+               <TextView
+                   android:id="@+id/time_out_text"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/white"
+                   android:text="已过期"/>
+           </LinearLayout>
+
+       </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/hb_pager"/>
+
+
+
+</LinearLayout>
