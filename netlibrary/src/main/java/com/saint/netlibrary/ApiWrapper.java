@@ -1,5 +1,6 @@
 package com.saint.netlibrary;
 
+import com.saint.netlibrary.model.LatestAnnouncement;
 import com.saint.netlibrary.model.Login;
 import com.saint.netlibrary.model.mine;
 
@@ -29,5 +30,13 @@ public class ApiWrapper extends BangHttpClient {
 
     public Observable<Login> login(String username,String password){
         return getService().login(username,password).compose(this.<Login>applySchedulers());
+    }
+
+    /**
+     * 最新揭晓
+     * */
+
+    public Observable<LatestAnnouncement> announcement(String start ,String number){
+        return getService().announcement(start,number).compose(this.<LatestAnnouncement>applySchedulers());
     }
 }

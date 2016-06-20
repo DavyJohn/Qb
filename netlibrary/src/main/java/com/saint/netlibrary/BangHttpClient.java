@@ -122,7 +122,6 @@ public class BangHttpClient {
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .build();
         }
-
         return retrofit;
     }
 

@@ -6,4 +6,6 @@
     <item name="main_search" type="id"/>
     <item name="main_toolbar" type="id"/>
     <item name="main_menu" type="id"/>
+
+    <item name="all_record_jilu" type="id"/>
 </resources>

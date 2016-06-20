@@ -1,5 +1,6 @@
 package com.saint.netlibrary;
 
+import com.saint.netlibrary.model.LatestAnnouncement;
 import com.saint.netlibrary.model.Login;
 import com.saint.netlibrary.model.mine;
 
@@ -33,5 +34,6 @@ public interface APIService {
     @GET("/mobile/ajax/userlogin/{username}/{password}")
     Observable<Response<Login>> login(@Path("username") String username, @Path("password") String password);
 
-
+    @GET("/mobile/ajax/getLotteryList/{start}/{number}/0")
+    Observable<Response<LatestAnnouncement>> announcement(@Path("start") String start,@Path("number") String number );
 }

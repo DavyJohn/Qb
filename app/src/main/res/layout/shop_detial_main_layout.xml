@@ -94,12 +94,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="120dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:id="@+id/qiagbao_jilu"
                 android:orientation="horizontal">
 
@@ -127,7 +127,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:id="@+id/tuwen_detail"
                 android:orientation="horizontal">
 
@@ -155,7 +155,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:id="@+id/qiangbao_history"
                 android:orientation="horizontal">
 

@@ -89,6 +89,7 @@
         <activity android:name=".login.RegisterActivity"
             android:exported="true"/>
         <activity android:name=".ShopDetialActivity"/>
+        <activity android:name=".fragments.all.activity.AllRecordActivity"/>
 
     </application>
 

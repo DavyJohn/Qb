@@ -8,7 +8,7 @@ public class ConstantUtil {
     /**
      * 服务器地址
      */
-    public static final String API_HOST = "https://v1.ibangi.cn/api/";
+    public static final String API_HOST = "http://i1yqb.com";
 
     /**
      * 预定加密字符串
