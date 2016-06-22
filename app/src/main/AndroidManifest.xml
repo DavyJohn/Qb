@@ -90,7 +90,9 @@
             android:exported="true"/>
         <activity android:name=".ShopDetialActivity"/>
         <activity android:name=".fragments.all.activity.AllRecordActivity"/>
-
+        <activity android:name=".fragments.newst.ResultsRevealedActivity"/>
+        <activity android:name=".fragments.all.activity.GraphicDetailsActivity"/>
+        <activity android:name=".fragments.all.activity.QbHistoryActivity"/>
     </application>
 
 </manifest>

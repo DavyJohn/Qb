@@ -14,4 +14,5 @@
     <string name="dialog_no">取消</string>
     <string name="mine_ju">我的抢宝记录</string>
     <string name="all_record">所有抢宝记录</string>
+    <string name="results_recealed">揭晓结果</string>
 </resources>

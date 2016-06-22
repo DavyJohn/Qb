@@ -31,7 +31,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="130dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -44,7 +44,8 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/userphoto"/>
+                        android:src="@drawable/userphoto"
+                        android:id="@+id/shop_details_image"/>
                 </LinearLayout>
 
                 <RelativeLayout
@@ -60,7 +61,9 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:text="商品名称"/>
+                        android:text="商品名称"
+                        android:maxLines="2"
+                        android:id="@+id/shop_detail_title"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -69,9 +72,9 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_gravity="bottom"
-                        android:text="价值"/>
+                        android:text="价值"
+                        android:id="@+id/shop_datail_price"/>
                 </RelativeLayout>
-
             </LinearLayout>
 
             <View
@@ -79,10 +82,76 @@
                 android:layout_height="0.5dp"
                 android:background="@color/gray"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="进度条"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp">
+                <ProgressBar
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:id="@+id/shop_detail_progress"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/main"
+                        android:id="@+id/shop_detail_canyu_number"
+                        android:layout_height="wrap_content"
+                        android:text="已参与"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="总人数"
+                        android:id="@+id/shop_detail_all_number"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="剩余"
+                        android:id="@+id/shop_detail_shenyu_number"
+                        android:textColor="@color/blue"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="已参与"
+                        android:textColor="@color/main"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="总人数"
+                        android:textSize="10sp"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="剩余"
+                        android:textColor="@color/blue"
+                        android:textSize="10sp"/>
+                </LinearLayout>
+            </LinearLayout>
+
 
 
         </LinearLayout>
@@ -90,7 +159,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@color/gray"/>
+            android:background="@color/gray_"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -185,17 +254,30 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@color/gray"/>
+            android:background="@color/gray_"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="上期获得者"
-                android:textSize="10sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上期获得者"
+                    android:textSize="10sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:id="@+id/zongqb_text"
+                    android:text="总抢宝次数"
+                    android:textColor="@color/main"/>
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -205,6 +287,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="5dp"
+                    android:id="@+id/huojiang_image"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:src="@drawable/userphoto"/>
@@ -218,37 +301,36 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:textSize="6sp"
+                        android:id="@+id/huojiang_name"
                         android:text="获奖者名称"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:textSize="6sp"
+                        android:id="@+id/huojiang_address"
                         android:text="获奖者ip地址"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:textSize="6sp"
+                        android:id="@+id/jiexiao_time"
                         android:text="揭晓时间"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:textSize="6sp"
+                        android:id="@+id/qb_time"
                         android:text="抢宝时间"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:textSize="6sp"
-                        android:text="总抢宝次数"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:textSize="6sp"
-                        android:text="幸运抢宝"/>
+                        android:text="幸运抢宝"
+                        android:id="@+id/qb_code"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

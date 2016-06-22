@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="10dp">
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -46,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="价值："
+                android:textSize="10sp"
                 android:id="@+id/latest_shop_price"
                 android:layout_marginTop="35dp"/>
 
@@ -53,16 +54,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="揭晓时间"
+                android:textSize="10sp"
                 android:id="@+id/latest_shop_time"
                 android:paddingTop="2dp"/>
 
         </LinearLayout>
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/latest_user"
             android:src="@drawable/userphoto"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:layout_margin="10dp"/>
     </LinearLayout>
 
 

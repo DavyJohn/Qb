@@ -20,6 +20,7 @@ import java.util.Map;
 import butterknife.Bind;
 
 /**
+ * 所有抢宝记录
  * Created by 志浩 on 2016/6/20.
  */
 public class AllRecordActivity extends BaseActivity {

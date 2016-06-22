@@ -8,4 +8,5 @@
     <item name="main_menu" type="id"/>
 
     <item name="all_record_jilu" type="id"/>
+    <item name="history_text" type="id"/>
 </resources>

@@ -1,5 +1,6 @@
 package com.six.qiangbao.fragments.newst;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -39,6 +40,8 @@ public class NewFragment extends BaseFragment {
     private List<ListItemsData> list = new ArrayList<>();
     private NewstAdapter adapter ;
 
+    private int star = 0;
+    private int i = 0 ;
 
     @Nullable
     @Override
@@ -54,7 +57,7 @@ public class NewFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initData();
-        Announcement();
+        announcement();
     }
 
     private void initData(){
@@ -63,27 +66,76 @@ public class NewFragment extends BaseFragment {
         mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Toast.makeText(getActivity(),"下拉刷新",Toast.LENGTH_SHORT).show();
-
+                i= 0;
+                announcement();
             }
         });
 
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            boolean isSlidingTolast = false;
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    int lastItem = manager.findLastCompletelyVisibleItemPosition();
+                    int totalItemCount = manager.getItemCount();
+                    if (lastItem == (totalItemCount - 1) && isSlidingTolast) {
+                            ++i;
+                            announcement();
+                    }
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    isSlidingTolast = true;
+                } else {
+                    isSlidingTolast = false;
+                }
+            }
+        });
         adapter = new NewstAdapter(context);
         mRecycler.setAdapter(adapter);
 
-
+        adapter.setOnItemClickListener(new NewstAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int postion) {
+                Intent intent = new Intent(getActivity(),ResultsRevealedActivity.class);
+                intent.putExtra("shop_image",list.get(postion).thumb);
+                intent.putExtra("username",list.get(postion).q_user);
+                intent.putExtra("user_image",list.get(postion).userphoto);
+                intent.putExtra("user_address",list.get(postion).q_uid);
+                intent.putExtra("user_code",list.get(postion).q_user_code);
+                intent.putExtra("qishu",list.get(postion).qishu);
+                intent.putExtra("renshu",list.get(postion).gonumber);
+                intent.putExtra("jiexiao",list.get(postion).q_end_time);
+                startActivity(intent);
+            }
+        });
     }
 
-    private void Announcement(){
+    private void announcement(){
+        star = i*10;
         final ApiWrapper wrapper = new ApiWrapper();
-        Subscription subscription = wrapper.announcement(String.valueOf(0),String.valueOf(10))
+        Subscription subscription = wrapper.announcement(String.valueOf(star),String.valueOf(10))
                 .subscribe(newSubscriber(new Action1<LatestAnnouncement>() {
                     @Override
                     public void call(LatestAnnouncement latestAnnouncement) {
+                        list.clear();
+                        mSwipe.setRefreshing(false);
                         list.addAll(latestAnnouncement.listItems);
                         adapter.addData(list);
+                        String coun = latestAnnouncement.count;
+
+                        if (i >Integer.parseInt(coun)/10){
+                            Toast.makeText(getActivity(),"无更多数据",Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 }));
