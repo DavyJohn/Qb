@@ -32,6 +32,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:inputType="phone"
             android:id="@+id/register_phone"
             android:hint="请输入您的手机号码"
             android:background="@drawable/et_shape"
@@ -58,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:hint="密码"
+            android:inputType="textPassword"
             android:id="@+id/register_pass"
             android:background="@drawable/et_shape"
             android:paddingLeft="30dp"/>
@@ -80,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:hint="再次输入密码"
+            android:inputType="textPassword"
             android:id="@+id/register_pass_ag"
             android:background="@drawable/et_shape"
             android:paddingLeft="30dp"/>

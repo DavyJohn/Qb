@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.six.qiangbao.R;
+import com.six.qiangbao.fragments.mine.fragment.IngFragment;
 import com.six.qiangbao.login.LoginActivity;
 import com.six.qiangbao.utils.ConstantUtil;
 import com.squareup.picasso.Picasso;
@@ -64,13 +66,14 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewHolder holder = null;
         if (viewType == HEADER_ITEM_FLAG) {
-            if (ConstantUtil.isMineChange == 0) {
-                View view = inflater.inflate(R.layout.mine_login_un_layout, parent, false);
-                holder = new ViewHolder(view,HEADER_ITEM_FLAG);
-            } else {
-                View view = inflater.inflate(R.layout.mine_login__layout, parent, false);
-                holder = new ViewHolder(view,HEADER_ITEM_FLAG);
-            }
+                if (ConstantUtil.isMineChange == 0){
+                    View view = inflater.inflate(R.layout.mine_login_un_layout, parent, false);
+                    holder = new ViewHolder(view,HEADER_ITEM_FLAG);
+                }else if (ConstantUtil.isMineChange ==1){
+                    View view = inflater.inflate(R.layout.mine_login__layout, parent, false);
+                    holder = new ViewHolder(view,HEADER_ITEM_FLAG);
+                }
+
         } else if (viewType == END_ITEM_FLAG) {
             View view = inflater.inflate(R.layout.mine_end_recycler_layout, parent, false);
             holder = new ViewHolder(view,END_ITEM_FLAG);
@@ -83,6 +86,8 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
+
+
         if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -93,7 +98,7 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
             });
         }
         if (position == 0) {
-
+            //登陆状态下才有数值
         }else  if (position == 7) {
             holder.mTextEnd.setText("本公司拥有一切解释权");
         } else {
@@ -127,11 +132,16 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
 
         //end
         TextView mTextEnd;
-
+        LinearLayout unLogin,login;
         public ViewHolder(View itemView ,int type) {
             super(itemView);
             if (type == HEADER_ITEM_FLAG){
-                mBtnLogin = (Button) itemView.findViewById(R.id.mine_login);
+                if (ConstantUtil.isMineChange == 0){
+                    mBtnLogin = (Button) itemView.findViewById(R.id.mine_login);
+                    mBtnLogin.setClickable(false);
+                }
+                unLogin= (LinearLayout) itemView.findViewById(R.id.lin_unlogin);
+                login = (LinearLayout) itemView.findViewById(R.id.lin_login);
                 mTextUserName = (TextView) itemView.findViewById(R.id.mine_username);
                 mImageUser = (ImageView) itemView.findViewById(R.id.mine_userimage);
                 mTextLeave = (TextView) itemView.findViewById(R.id.text_leave);
@@ -139,7 +149,15 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
                 mTextMoney = (TextView) itemView.findViewById(R.id.mine_money);
                 mBtn1 = (Button) itemView.findViewById(R.id.btn1);
                 mBtn2 = (Button) itemView.findViewById(R.id.btn2);
-                mBtnLogin.setClickable(false);
+
+//
+//                if (ConstantUtil.isMineChange == 0){
+//                    login.setVisibility(View.GONE);
+//                    unLogin.setVisibility(View.VISIBLE);
+//                }else {
+//                    unLogin.setVisibility(View.GONE);
+//                    login.setVisibility(View.VISIBLE);
+//                }
             }else if (type == NORMAL_ITEM_FLAG){
                 mTextContent = (TextView) itemView.findViewById(R.id.mine_normal_content);
                 mImageNormal = (ImageView) itemView.findViewById(R.id.mine_normal_image);

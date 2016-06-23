@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.saint.netlibrary.BangHttpClient;
@@ -141,6 +142,7 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable e) {
                 dismissProgressDialog();
+                Log.e("error",e+"");
                 if (e instanceof BangHttpClient.APIException) {
                     BangHttpClient.APIException exception = (BangHttpClient.APIException) e;
                 } else if (e instanceof SocketTimeoutException) {

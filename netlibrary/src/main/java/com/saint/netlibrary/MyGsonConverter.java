@@ -13,6 +13,7 @@ import retrofit2.Retrofit;
 /**
  * Created by yyx on 16/3/2.
  */
+
 public class MyGsonConverter extends Converter.Factory {
     public static MyGsonConverter create() {
         return create(new Gson());

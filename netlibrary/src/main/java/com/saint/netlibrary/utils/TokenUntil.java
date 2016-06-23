@@ -17,7 +17,7 @@ public class TokenUntil {
         SharedPreferences preferences = BangHttpClient.getContext().getSharedPreferences(TOKEN_CACHE_FILE,0);
         SharedPreferences.Editor editor = preferences.edit();
         if (!TextUtils.isEmpty(token)){
-            editor.putString(TOKEN_CACHE, "Bearer " + token);
+            editor.putString(TOKEN_CACHE,token);
         }
         editor.commit();
     }

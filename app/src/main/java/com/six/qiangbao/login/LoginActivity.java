@@ -17,6 +17,8 @@ import com.six.qiangbao.R;
 import com.six.qiangbao.utils.ConstantUtil;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -54,7 +56,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
 
     @OnClick(R.id.btn_login) void  login(){
 
-        ConstantUtil.isMineChange = 1;
+//        ConstantUtil.isMineChange = 1;
         finish();
         final ApiWrapper wrapper = new ApiWrapper();
         String phone = mEphone.getText().toString();
@@ -64,6 +66,14 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                     @Override
                     public void call(Login login) {
                         int  text =login.state;
+                        if (text == 0){
+                            //登录成功
+                            ConstantUtil.isMineChange = 1;
+                        }else {
+                            //登陆失败
+                            ConstantUtil.isMineChange = 0;
+
+                        }
                         System.out.print(text);
                     }
                 }));
@@ -133,5 +143,15 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     @Override
     public void onCancel(Platform platform, int i) {
         Logger.i("用户取消了授权");
+    }
+    //判断是否为手机号码
+    public static boolean isMobileNO(String mobiles) {
+
+        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,3,5-9]))\\d{8}$");
+
+        Matcher m = p.matcher(mobiles);
+
+        return m.matches();
+
     }
 }

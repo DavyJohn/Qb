@@ -73,6 +73,8 @@ public class MineFragment extends BaseFragment {
     }
 
     private void  initRecycler(){
+        iconlist.clear();
+        textlist.clear();
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecycler.addItemDecoration(new DividerDecoration(getActivity()));
@@ -184,4 +186,13 @@ public class MineFragment extends BaseFragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        initRecycler();
+    }
+
 }

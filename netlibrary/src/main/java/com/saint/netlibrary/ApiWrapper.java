@@ -1,8 +1,11 @@
 package com.saint.netlibrary;
 
 import com.saint.netlibrary.model.CarList;
+
+import com.saint.netlibrary.model.CodeData;
 import com.saint.netlibrary.model.LatestAnnouncement;
 import com.saint.netlibrary.model.Login;
+import com.saint.netlibrary.model.MobileCheck;
 import com.saint.netlibrary.model.ShopDetails;
 import com.saint.netlibrary.model.ShopListData;
 import com.saint.netlibrary.model.mine;
@@ -67,6 +70,27 @@ public class ApiWrapper extends BangHttpClient {
 
     public Observable<ShopDetails> shopUrl (String url){
         return getService().shopUrl(url).compose(this.<ShopDetails>applySchedulers());
+    }
+
+    /**
+     * 注册*/
+    public Observable<CodeData> getCode(String submit, String name, String userpassword, String userpassword2){
+        return getService().getCode(submit,name,userpassword,userpassword2).compose(this.<CodeData>applySchedulers());
+
+    }
+
+    /**
+     * 验证验证码*/
+    public Observable<MobileCheck> CheckMobileCode(String submit ,String check_code,String checkcodes){
+        return getService().Check_code(submit,check_code,checkcodes).compose(this.<MobileCheck>applySchedulers());
+    }
+
+    /**
+     * 获取验证码
+     * */
+
+    public Observable<MobileCheck> getCode(String check_code){
+        return getService().getCheck(check_code).compose(this.<MobileCheck>applySchedulers());
     }
 
 }
