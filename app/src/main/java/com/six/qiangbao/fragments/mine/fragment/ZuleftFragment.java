@@ -23,4 +23,9 @@ public class ZuleftFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
 }

@@ -24,5 +24,11 @@ public class ConstantUtil {
 
     public static final String USER_PHONE_NUMBER = "USER_PHONE_NUMBER";
     public static final String USER_NAME = "USER_NAME";
+    public static final String CHECK_CODE = "f1b1BVBSAAxXVw8HCVBdVQNSVldXV1ECBQBRVg1VCVYDSEIOUF8TVgQLUhQCQQJVVFwXAgVWA1kCVVMCBg0RX0oJBQ5GEVhVAEQMXwMDDFNUVQYGAlUCWkk";
+
+
+    public static int STATUS = -1;//-1 全部 1 进行 0 已揭晓
+    //默认
+    public static int MOREN_ID = -1;
 
 }

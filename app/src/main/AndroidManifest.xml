@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.six.qiangbao">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
     <!--允许联网 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--获取GSM（2g）、WCDMA（联通3g）等网络状态的信息  -->
@@ -30,7 +33,37 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name="com.six.qiangbao.activitys.MainActivity">
+
+
+        <activity
+            android:name="cn.beecloud.BCMockPayActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        //对于微信支付，需要添加
+        <activity
+            android:name="cn.beecloud.BCWechatPaymentActivity"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity="cn.beecloud.BCWechatPaymentActivity" />
+
+        //对于支付宝，需要添加
+
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        //end
+
+        <activity android:name="com.six.qiangbao.activitys.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -88,11 +121,20 @@
             android:exported="true"/>
         <activity android:name=".login.RegisterActivity"
             android:exported="true"/>
-        <activity android:name=".ShopDetialActivity"/>
+        <activity android:name=".activitys.ShopDetialActivity"/>
         <activity android:name=".fragments.all.activity.AllRecordActivity"/>
         <activity android:name=".fragments.newst.ResultsRevealedActivity"/>
         <activity android:name=".fragments.all.activity.GraphicDetailsActivity"/>
         <activity android:name=".fragments.all.activity.QbHistoryActivity"/>
+        <activity android:name=".login.RegisterCodeActivity"/>
+        <activity android:name=".activitys.JxResultactivity"/>
+        <activity android:name=".activitys.InvitationActivity"/>
+        <activity android:name=".activitys.PayActivity"/>
+        <activity android:name=".activitys.PersionalInfoActivity"/>
+        <activity android:name=".activitys.NameInfoActivity"/>
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+        <activity android:name=".activitys.PaymentActivity"/>
+        <activity android:name=".activitys.PaymentHbActivity"/>
     </application>
 
 </manifest>

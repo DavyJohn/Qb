@@ -119,34 +119,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:background="@color/gray_"
-        android:id="@+id/lin_unlogin">
-        <!--<LinearLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical"-->
-            <!--android:gravity="center">-->
-
-            <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="欢迎来到1元抢宝"-->
-                <!--android:textSize="15sp"/>-->
-
-            <!--<Button-->
-                <!--android:layout_width="150dp"-->
-                <!--android:id="@+id/mine_login"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="登录"-->
-                <!--android:textColor="@color/main"/>-->
-        <!--</LinearLayout>-->
-
-    </LinearLayout>
-
 </LinearLayout>

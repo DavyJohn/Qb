@@ -7,6 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.saint.netlibrary.APIService;
+import com.saint.netlibrary.ApiWrapper;
+import com.saint.netlibrary.model.GoodsQbJuData;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
 import com.six.qiangbao.fragments.all.adapter.AllRecordAdapter;
@@ -17,7 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
+import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * 所有抢宝记录
@@ -25,34 +30,32 @@ import butterknife.Bind;
  */
 public class AllRecordActivity extends BaseActivity {
 
-    @Bind(R.id.all_record_recycler)
+    @BindView(R.id.all_record_recycler)
     RecyclerView mRecycler;
 
-    @Bind(R.id.all_record_bar)
+    @BindView(R.id.all_record_bar)
     Toolbar mToolBar;
 
-    private List<Map<String, String>> list = new ArrayList<>();
+    private List<GoodsQbJuData> list = new ArrayList<>();
+
     private AllRecordAdapter adapter;
+    String id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_record_main_layout);
         setupToolbar();
+        id = getIntent().getStringExtra("goods_id");
         initData();
     }
 
     private void initData() {
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mRecycler.addItemDecoration(new DividerDecoration(this));
-        for (int i = 0; i <20; i++){
-            Map<String,String> map = new HashMap<>();
-            map.put("jilu","抢宝记录"+i);
-            list.add(map);
-        }
+        mRecycler.addItemDecoration(new DividerDecoration(this,LinearLayoutManager.VERTICAL));
+
         adapter = new AllRecordAdapter(this);
-        adapter.addData(list);
-        mRecycler.setAdapter(adapter);
+
 
 
     }
@@ -67,5 +70,27 @@ public class AllRecordActivity extends BaseActivity {
                 finish();
             }
         });
+    }
+
+
+    private void data(String id){
+        final ApiWrapper wrapper = new ApiWrapper();
+        Subscription subscription = wrapper.qbdata(id)
+                .subscribe(newSubscriber(new Action1<List<GoodsQbJuData>>() {
+                    @Override
+                    public void call(List<GoodsQbJuData> goodsQbJuDatas) {
+                        if (goodsQbJuDatas.size() != 0){
+                            list.addAll(goodsQbJuDatas);
+                            mRecycler.setAdapter(adapter);
+                            adapter.addData(goodsQbJuDatas);
+                        }
+                    }
+                }));
+        mCompositeSubscription.add(subscription);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        data(id);
     }
 }

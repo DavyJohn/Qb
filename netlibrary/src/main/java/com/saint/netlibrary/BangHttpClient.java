@@ -4,21 +4,36 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.saint.netlibrary.utils.ConstantUtil;
 import com.saint.netlibrary.utils.ExceptionUtil;
+import com.saint.netlibrary.utils.PersistentCookieStore;
 import com.saint.netlibrary.utils.TokenUntil;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.CookieHandler;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.util.List;
 
 import okhttp3.Authenticator;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.Headers;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Route;
+import okhttp3.internal.framed.Header;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -36,9 +51,8 @@ public class BangHttpClient {
 
     private static Retrofit retrofit;
     private static APIService service;
+    private static FileApiService fileApiService;
     private static Context context;
-
-
     public static void init(Context c){
         context = c;
     }
@@ -64,24 +78,51 @@ public class BangHttpClient {
         return service;
     }
 
+    public static FileApiService getFileService(){
+        if (fileApiService == null){
+            fileApiService = getFileRetrofit().create(FileApiService.class);
+        }
+        return fileApiService;
+    }
+
+    private static Retrofit getFileRetrofit(){
+        if (retrofit == null){
+            FileHttpLoggingInterceptor interceptor = new FileHttpLoggingInterceptor(new FileHttpLoggingInterceptor.Logger(){
+                @Override
+                public void log(String message) {
+                }
+            });
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(interceptor)
+                    .build();
+            retrofit = new Retrofit.Builder()
+                    .client(client)
+                    .baseUrl(ConstantUtil.API_HOST)
+                    .addConverterFactory(MyGsonConverter.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                    .build();
+        }
+
+        return retrofit;
+    }
+
     private static Retrofit getRetrofit(){
         if (retrofit == null){
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+            FileHttpLoggingInterceptor interceptor = new FileHttpLoggingInterceptor();
+            interceptor.setLevel(FileHttpLoggingInterceptor.Level.BODY);
 
             Interceptor mTokenInterceptor = new Interceptor() {
                 @Override public okhttp3.Response intercept(Chain chain) throws IOException {
-
                     Request originalRequest = chain.request();
                     String cacheControl = originalRequest.cacheControl().toString();
                     if (!isConnected()) {
                         originalRequest = originalRequest.newBuilder()
                                 .cacheControl(CacheControl.FORCE_CACHE)
-                                .header(ConstantUtil.HEADER_ACCEPT, ConstantUtil.HEADER_ACCEPT_VALVE).build();
+                                .header(ConstantUtil.CONTENT_TYPE, ConstantUtil.CONTENT_TYPE_JSON).build();
                     }
                     if (!TextUtils.isEmpty(TokenUntil.getToken())) {
                         originalRequest = originalRequest.newBuilder()
-                                .header(ConstantUtil.AUTHORIZZTION, TokenUntil.getToken())
+                                .header(ConstantUtil.CONTENT_TYPE,ConstantUtil.CONTENT_TYPE_JSON)
                                 .build();
                     }
                     okhttp3.Response response = chain.proceed(originalRequest);
@@ -106,9 +147,11 @@ public class BangHttpClient {
                 }
             };
 
+            ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(),new SharedPrefsCookiePersistor(context));
             File cacheFile = new File(context.getCacheDir(),"httpcache");
             Cache cache = new Cache(cacheFile,1024*1024*10);//10M缓存
             OkHttpClient client = new OkHttpClient.Builder()
+                    .cookieJar(cookieJar)
                     .addInterceptor(interceptor)
                     .addNetworkInterceptor(mTokenInterceptor)
                     .addInterceptor(mTokenInterceptor)
@@ -189,14 +232,13 @@ public class BangHttpClient {
                         public Object call(Object response) {
                             return flatResponse((Response<Object>)response);
                         }
-                    })
-                    ;
+                    });
+
         }
     };
 
     protected <T> Observable.Transformer<Response<T>, T> applySchedulers() {
         return (Observable.Transformer<Response<T>, T>) transformer;
     }
-
 
 }

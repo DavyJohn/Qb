@@ -14,6 +14,8 @@ import com.saint.netlibrary.BangHttpClient;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
+import butterknife.ButterKnife;
+import io.realm.Realm;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
@@ -21,7 +23,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by yyx on 16/5/20.
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     /**
      * 使用CompositeSubscription来持有所有的Subscriptions
@@ -30,19 +32,27 @@ public class BaseFragment extends Fragment {
 
     private MaterialDialog progressDialog;
 
+    protected boolean isVisible;
     protected Context context;
-
+    private Realm realm;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
         mCompositeSubscription = new CompositeSubscription();
+        realm = Realm.getDefaultInstance();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
     }
 
     @Override
@@ -54,6 +64,7 @@ public class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         mCompositeSubscription.unsubscribe();
+        realm.close();
     }
 
     protected void showDialog(String title,String msg){
@@ -118,4 +129,23 @@ public class BaseFragment extends Fragment {
 
         };
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (getUserVisibleHint()){
+            isVisible = true;
+            onVisible();
+        }else {
+            isVisible = false;
+            onInvisible();
+        }
+    }
+
+    protected void onVisible(){
+        lazyLoad();
+    }
+
+    protected abstract void lazyLoad();
+    protected void onInvisible(){};
 }

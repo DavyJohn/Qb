@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@color/gray_">
+    <TextView
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="80dp"
+    android:text="全部"
+    android:id="@+id/tab1"
+    android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="80dp"
+        android:text="人气"
+        android:id="@+id/tab2"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="80dp"
+        android:text="常见问题"
+        android:id="@+id/tab3"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="80dp"
+        android:text="十元专区"
+        android:gravity="center"
+        android:id="@+id/tab4"/>
+
+
+
+
+</LinearLayout>

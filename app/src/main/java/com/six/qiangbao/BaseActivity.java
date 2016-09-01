@@ -1,5 +1,6 @@
 package com.six.qiangbao;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -14,6 +15,8 @@ import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
 import butterknife.ButterKnife;
+import cn.beecloud.BeeCloud;
+import io.realm.Realm;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
@@ -29,11 +32,15 @@ public class BaseActivity extends AppCompatActivity {
     protected CompositeSubscription mCompositeSubscription;
 
     private MaterialDialog progressDialog;
-
+    protected Activity mContext;
+    private Realm realm;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCompositeSubscription = new CompositeSubscription();
+        mContext = this;
+        realm = Realm.getDefaultInstance();
+
     }
 
     /**
@@ -92,8 +99,9 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
+        ButterKnife.bind(this).unbind();
         mCompositeSubscription.unsubscribe();
+        realm.close();
     }
 
     protected void showDialog(String title,String msg){
@@ -142,7 +150,6 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable e) {
                 dismissProgressDialog();
-                Log.e("error",e+"");
                 if (e instanceof BangHttpClient.APIException) {
                     BangHttpClient.APIException exception = (BangHttpClient.APIException) e;
                 } else if (e instanceof SocketTimeoutException) {

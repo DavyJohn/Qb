@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:orientation="vertical"
-              android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/new_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/main">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/new_tab_name"
-            android:textColor="@color/white"
-            android:textSize="@dimen/action_bar_title" />
-
-    </android.support.v7.widget.Toolbar>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/new_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/main">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="最新揭晓"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+        </android.support.v7.widget.Toolbar>
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/newst_swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/newst_swipe">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/newst_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/newst_recycler"/>
+            android:layout_height="match_parent"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

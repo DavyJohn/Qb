@@ -1,6 +1,9 @@
 package com.six.qiangbao.login;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,13 +16,17 @@ import android.widget.Toast;
 
 import com.saint.netlibrary.ApiWrapper;
 
+import com.saint.netlibrary.model.Abcd;
 import com.saint.netlibrary.model.CodeData;
+import com.saint.netlibrary.model.MobileCheck;
 import com.saint.netlibrary.utils.ConstantUtil;
 import com.saint.netlibrary.utils.TokenUntil;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.sms.ReadSmsContent;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.OnClick;
 import rx.Subscription;
 import rx.functions.Action1;
@@ -30,18 +37,18 @@ import rx.functions.Action1;
  */
 public class RegisterActivity extends BaseActivity {
 
-
-    @Bind(R.id.register_bar)
+    private ReadSmsContent readSmsContent;
+    @BindView(R.id.register_bar)
     Toolbar mToolbar;
-    @Bind(R.id.register_phone)
+    @BindView(R.id.register_phone)
     EditText mTphone;
-    @Bind(R.id.register_pass)
+    @BindView(R.id.register_pass)
     EditText mTpass;
-    @Bind(R.id.register_pass_ag)
+    @BindView(R.id.register_pass_ag)
     EditText mTpassAg;
-    @Bind(R.id.next_btn)
+    @BindView(R.id.next_btn)
     Button btn;
-    @Bind(R.id.check_box)
+    @BindView(R.id.check_box)
     CheckBox box;
 
     private String phone,password,password2;
@@ -49,12 +56,15 @@ public class RegisterActivity extends BaseActivity {
         Toast.makeText(this,"查看协议",Toast.LENGTH_SHORT).show();
     }
 
+
     @OnClick(R.id.next_btn) void next(){
         phone = mTphone.getText().toString();
         password = mTpass.getText().toString();
         password2 = mTpassAg.getText().toString();
+
         if (password.equals(password2)){
-            getCode(phone,password,password2);
+            register(phone,password,password2);
+
         }else {
             Toast.makeText(this,"两次密码输入不正确",Toast.LENGTH_SHORT).show();
         }
@@ -95,20 +105,35 @@ public class RegisterActivity extends BaseActivity {
             }
         });
     }
-
-    private void getCode(String name,String userpassword,String userpassword2){
+    //注册
+    private void register(String name,String userpassword,String userpassword2){
         final ApiWrapper wrapper = new ApiWrapper();
-        Subscription subscription =wrapper.getCode("1",name,userpassword,userpassword2)
-                .subscribe(newSubscriber(new Action1<CodeData>() {
+        Subscription subscription =wrapper.getCode("1","13218677739","qwerty","qwerty")
+                .subscribe(newSubscriber(new Action1<String>() {
                     @Override
-                    public void call(CodeData code) {
-                        String text = code.regtype;
-                        System.out.print(text);
-                        TokenUntil.saveToken(code.check_code);
-                        System.out.print(code.check_code);
+                    public void call(String code) {
+                        System.out.print("=================注册"+code);
+                        startActivity(RegisterCodeActivity.class);
                     }
                 }));
         mCompositeSubscription.add(subscription);
 
     }
+
+    /**
+     * 获取验证码
+     * */
+
+//    private void getCode(String check_code){
+//        final ApiWrapper wrapper = new ApiWrapper();
+//        Subscription subscription = wrapper.getCode(check_code)
+//                .subscribe(newSubscriber(new Action1<MobileCheck>() {
+//                    @Override
+//                    public void call(MobileCheck mobileCheck) {
+//
+//                    }
+//                }));
+//        mCompositeSubscription.add(subscription);
+//    }
+
 }

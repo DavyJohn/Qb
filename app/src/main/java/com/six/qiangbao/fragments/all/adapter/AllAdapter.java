@@ -1,4 +1,4 @@
-package com.six.qiangbao.fragments.all;
+package com.six.qiangbao.fragments.all.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -14,13 +14,11 @@ import com.six.qiangbao.R;
 import com.six.qiangbao.utils.ConstantUtil;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -85,19 +83,19 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.all_shop_image)
+        @BindView(R.id.all_shop_image)
         ImageView mImage;
-        @Bind(R.id.shop_name)
+        @BindView(R.id.shop_name)
         TextView mTextUserName;
-        @Bind(R.id.shop_price)
+        @BindView(R.id.shop_price)
         TextView mTextPrice;
-        @Bind(R.id.all_progress)
+        @BindView(R.id.all_progress)
         ProgressBar mProgressBar;
-        @Bind(R.id.canyu_number)
+        @BindView(R.id.canyu_number)
         TextView mTextCanyu;
-        @Bind(R.id.all_number)
+        @BindView(R.id.all_number)
         TextView mTextAll;
-        @Bind(R.id.shenyu_number)
+        @BindView(R.id.shenyu_number)
         TextView mTextShenYu;
         public ViewHolder(View itemView) {
             super(itemView);

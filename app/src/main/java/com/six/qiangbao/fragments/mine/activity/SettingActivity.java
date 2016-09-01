@@ -12,7 +12,8 @@ import com.six.qiangbao.login.LoginActivity;
 import com.six.qiangbao.utils.ConstantUtil;
 import com.six.qiangbao.utils.DataCleanManager;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -21,13 +22,14 @@ import butterknife.OnClick;
 public class SettingActivity extends BaseActivity {
 
 
-    @Bind(R.id.slideSwitch)
+    @BindView(R.id.slideSwitch)
     SlideSwitch mSlide;
-    @Bind(R.id.setting_bar)
+    @BindView(R.id.setting_bar)
     Toolbar mToolbar;
 
     @OnClick(R.id.exit_btn) void exit(){
         startActivity(LoginActivity.class);
+        finish();
     }
 
 

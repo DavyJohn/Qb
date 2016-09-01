@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:background="@color/gray_">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/main"
+        android:id="@+id/register_code_bar">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_gravity="center"/>
+    </android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="已将验证码发送到您的手机上，请注意查收"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+        <EditText
+            android:id="@+id/code_num"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:layout_height="40dp"
+            android:background="@drawable/et_shape"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/et_shape"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="验证码"
+                android:background="#00000000"
+                android:id="@+id/code_text"
+                android:textColor="@color/main"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/ti_button_shape"
+        android:textColor="@color/white"
+        android:text="下一步"
+        android:id="@+id/register_code_next_btn"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"/>
+
+</LinearLayout>

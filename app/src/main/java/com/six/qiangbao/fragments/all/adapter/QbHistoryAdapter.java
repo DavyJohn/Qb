@@ -16,7 +16,7 @@ import com.six.qiangbao.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -80,7 +80,7 @@ public class QbHistoryAdapter extends RecyclerView.Adapter<QbHistoryAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.history_text)
+        @BindView(R.id.history_text)
         TextView mText;
         public ViewHolder(View itemView) {
             super(itemView);

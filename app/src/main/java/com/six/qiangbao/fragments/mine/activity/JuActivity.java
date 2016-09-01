@@ -10,18 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
-import com.six.qiangbao.fragments.mine.fragment.AllFragment;
+import com.six.qiangbao.fragments.mine.fragment.AllMineFragment;
 import com.six.qiangbao.fragments.mine.fragment.EdFragment;
 import com.six.qiangbao.fragments.mine.fragment.IngFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -32,41 +31,44 @@ public class JuActivity extends BaseActivity {
     private List<Fragment> listviw  = new ArrayList<>();
     private FragmentPagerAdapter fragmentPagerAdapter;
 
-    @Bind(R.id.ju_bar)
+    @BindView(R.id.ju_bar)
     Toolbar mToolbar;
 
-    @Bind(R.id.ju_page)
+    @BindView(R.id.ju_page)
     ViewPager mViewPager;
 
-    @Bind(R.id.all)
+    @BindView(R.id.all)
     LinearLayout mAll;
-    @Bind(R.id.text_all)
+    @BindView(R.id.text_all)
     TextView mTextAll;
 
     @OnClick(R.id.all)
     void all() {
         mViewPager.setCurrentItem(0);
+        com.saint.netlibrary.utils.ConstantUtil.STATUS = -1;
         setTab(0);
     }
 
-    @Bind(R.id.ing)
+    @BindView(R.id.ing)
     LinearLayout mIng;
-    @Bind(R.id.text_ing)
+    @BindView(R.id.text_ing)
     TextView mTextIng;
 
     @OnClick(R.id.ing)
     void ing() {
+        com.saint.netlibrary.utils.ConstantUtil.STATUS = 1;
         mViewPager.setCurrentItem(1);
         setTab(1);
     }
 
-    @Bind(R.id.ed)
+    @BindView(R.id.ed)
     LinearLayout mEd;
-    @Bind(R.id.text_ed)
+    @BindView(R.id.text_ed)
     TextView mTextEd;
 
     @OnClick(R.id.ed)
     void ed() {
+        com.saint.netlibrary.utils.ConstantUtil.STATUS = 0;
         mViewPager.setCurrentItem(2);
         setTab(2);
     }
@@ -79,7 +81,7 @@ public class JuActivity extends BaseActivity {
         initdata();
     }
     private void  initdata(){
-        Fragment all = new AllFragment();
+        Fragment all = new AllMineFragment();
         Fragment ing = new IngFragment();
         Fragment ed = new EdFragment();
         listviw.add(all);
@@ -154,7 +156,5 @@ public class JuActivity extends BaseActivity {
         mAll.setBackgroundResource(R.drawable.lin1_shape_normal);
         mIng.setBackgroundResource(R.drawable.lin2_shape_normal);
         mEd.setBackgroundResource(R.drawable.lin3_shape_normal);
-
-
     }
 }

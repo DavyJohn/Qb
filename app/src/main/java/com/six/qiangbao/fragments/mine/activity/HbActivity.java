@@ -22,7 +22,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -32,21 +32,21 @@ public class HbActivity extends BaseActivity {
 
     private List<Fragment> list = new ArrayList<>();
     private FragmentPagerAdapter fragmentPagerAdapter;
-    @Bind(R.id.hb_pager)
+    @BindView(R.id.hb_pager)
     ViewPager mPager;
-    @Bind(R.id.hb_bar)
+    @BindView(R.id.hb_bar)
     Toolbar mToolBar;
-    @Bind(R.id.use)
+    @BindView(R.id.use)
     LinearLayout mLin1;
-    @Bind(R.id.use_text)
+    @BindView(R.id.use_text)
     TextView mText1;
-    @Bind(R.id.useed)
+    @BindView(R.id.useed)
     LinearLayout mLin2;
-    @Bind(R.id.useed_text)
+    @BindView(R.id.useed_text)
     TextView mText2;
-    @Bind(R.id.time_out)
+    @BindView(R.id.time_out)
     LinearLayout mLin3;
-    @Bind(R.id.time_out_text)
+    @BindView(R.id.time_out_text)
     TextView mText3;
     @OnClick(R.id.use) void  use(){
         mPager.setCurrentItem(0);

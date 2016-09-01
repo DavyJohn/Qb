@@ -30,7 +30,6 @@ public class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
             JsonReader jsonReader = new JsonReader(reader);
             jsonReader.setLenient(true);
             return gson.fromJson(jsonReader, type);
-            // return gson.fromJson(reader, type);
         } finally {
             closeQuietly(reader);
         }

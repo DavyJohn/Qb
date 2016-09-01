@@ -5,12 +5,14 @@ package com.saint.netlibrary.model;
  */
 
 public class CodeData {
-     public int code;
-     public String regtype;
-     public String check_code;
-     public String message;
+     private int code;
+     private String regtype;
+     private String check_code;
 
-    public CodeData() {
+    public CodeData(int code, String regtype, String check_code) {
+        this.code = code;
+        this.regtype = regtype;
+        this.check_code = check_code;
     }
 
     public int getCode() {
@@ -21,14 +23,6 @@ public class CodeData {
         this.code = code;
     }
 
-    public String getCheck_code() {
-        return check_code;
-    }
-
-    public void setCheck_code(String check_code) {
-        this.check_code = check_code;
-    }
-
     public String getRegtype() {
         return regtype;
     }
@@ -37,12 +31,12 @@ public class CodeData {
         this.regtype = regtype;
     }
 
-    public String getMessage() {
-        return message;
+    public String getCheck_code() {
+        return check_code;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setCheck_code(String check_code) {
+        this.check_code = check_code;
     }
 
     @Override
@@ -51,7 +45,6 @@ public class CodeData {
                 "code=" + code +
                 ", regtype='" + regtype + '\'' +
                 ", check_code='" + check_code + '\'' +
-                ", message='" + message + '\'' +
                 '}';
     }
 }

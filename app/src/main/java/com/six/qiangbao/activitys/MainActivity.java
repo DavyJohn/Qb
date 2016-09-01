@@ -4,6 +4,9 @@ import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -15,23 +18,24 @@ import com.six.qiangbao.fragments.all.AllFragment;
 import com.six.qiangbao.fragments.main.MainFragment;
 import com.six.qiangbao.fragments.mine.MineFragment;
 
-import butterknife.Bind;
+import butterknife.BindView;
+
 
 public class MainActivity extends BaseActivity {
 
-    private FragmentManager fm;
-    private MainFragment mainFragment;
-    private AllFragment allFragment;
-    private NewFragment newFragment;
-    private MineFragment mineFragment;
-    private CartFragment cartFragment;
-    private int DEFULT_FRAGMENT_INDEX = 0;
-
-    @Bind(R.id.main_bottom_navigation) AHBottomNavigation bottomNavigation;
+    private static FragmentManager fm;
+    private static MainFragment mainFragment;
+    private static AllFragment allFragment;
+    private static NewFragment newFragment;
+    private static MineFragment mineFragment;
+    private static CartFragment cartFragment;
+    private static int DEFULT_FRAGMENT_INDEX = 0;
+    private long exitTime = 0;
+    public static AHBottomNavigation bottomNavigation;
     private AHBottomNavigationItem item1;
     private AHBottomNavigationItem item2;
     private AHBottomNavigationItem item3;
-    private AHBottomNavigationItem item4;
+    public AHBottomNavigationItem item4;
     private AHBottomNavigationItem item5;
 
     @Override
@@ -39,12 +43,15 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        
     }
 
     private void initViews(){
+        bottomNavigation = (AHBottomNavigation) findViewById(R.id.main_bottom_navigation);
         fm = getSupportFragmentManager();
         initTabbar();
         showFragment(DEFULT_FRAGMENT_INDEX);
+
     }
 
     private void initTabbar(){
@@ -70,12 +77,13 @@ public class MainActivity extends BaseActivity {
             public void onTabSelected(int position, boolean wasSelected) {
                 if (!wasSelected){
                     showFragment(position);
+                    Log.e("showFragment",position+"");
                 }
             }
         });
     }
 
-    private void showFragment(int index){
+    public static void showFragment(int index){
         DEFULT_FRAGMENT_INDEX = index;
         FragmentTransaction ft = fm.beginTransaction();
         hideFragment(ft);
@@ -124,14 +132,14 @@ public class MainActivity extends BaseActivity {
         ft.commitAllowingStateLoss();
     }
 
-    private void hideFragment(FragmentTransaction ft){
+    private static void hideFragment(FragmentTransaction ft){
         if (mainFragment != null) ft.hide(mainFragment);
         if (allFragment != null) ft.hide(allFragment);
         if (newFragment != null) ft.hide(newFragment);
         if (mineFragment != null) ft.hide(mineFragment);
         if (cartFragment != null) ft.hide(cartFragment);
     }
-
+//
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt("postion",DEFULT_FRAGMENT_INDEX);
@@ -147,5 +155,23 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                //弹出提示，可以有多种方式
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                System.exit(0);
+            }
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -8,9 +8,9 @@ import java.util.List;
  */
 public class LatestAnnouncement {
 
-    public List<ListItemsData> listItems;
-    public String code;
-    public String count;
+    private List<ListItemsData> listItems;
+    private String code;
+    private String count;
 
     public LatestAnnouncement(List<ListItemsData> listItems, String code, String count) {
         this.listItems = listItems;
@@ -25,5 +25,29 @@ public class LatestAnnouncement {
                 ", code='" + code + '\'' +
                 ", count='" + count + '\'' +
                 '}';
+    }
+
+    public List<ListItemsData> getListItems() {
+        return listItems;
+    }
+
+    public void setListItems(List<ListItemsData> listItems) {
+        this.listItems = listItems;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
     }
 }

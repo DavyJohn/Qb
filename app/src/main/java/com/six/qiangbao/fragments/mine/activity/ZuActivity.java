@@ -19,7 +19,7 @@ import com.six.qiangbao.fragments.mine.fragment.ZuleftFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
@@ -31,20 +31,20 @@ public class ZuActivity extends BaseActivity {
     private FragmentPagerAdapter fragmentPagerAdapter;
 
 
-    @Bind(R.id.zu_bar)
+    @BindView(R.id.zu_bar)
     Toolbar mToolBar;
 
-    @Bind(R.id.zu_lin1)
+    @BindView(R.id.zu_lin1)
     LinearLayout mLin1;
 
-    @Bind(R.id.zu_lin2)
+    @BindView(R.id.zu_lin2)
     LinearLayout mLin2;
 
-    @Bind(R.id.zu_text1)
+    @BindView(R.id.zu_text1)
     TextView mText1;
-    @Bind(R.id.zu_text2)
+    @BindView(R.id.zu_text2)
     TextView mText2;
-    @Bind(R.id.zu_pager)
+    @BindView(R.id.zu_pager)
     ViewPager mPager;
 
     @OnClick(R.id.zu_lin1) void lin1(){

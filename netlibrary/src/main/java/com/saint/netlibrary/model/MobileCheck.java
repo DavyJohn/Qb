@@ -5,10 +5,10 @@ package com.saint.netlibrary.model;
  */
 public class MobileCheck {
 
-    public String code;
+    public int code;
     public String message;
 
-    public MobileCheck(String code, String message) {
+    public MobileCheck(int code, String message) {
         this.code = code;
         this.message = message;
     }

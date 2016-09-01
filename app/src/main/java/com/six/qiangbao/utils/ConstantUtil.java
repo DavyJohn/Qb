@@ -14,6 +14,9 @@ public class ConstantUtil {
 
     public static int isMineChange =0;//0 为未登录 1 其他为登录
     public static int isImage = 1; //1 为 有图
-
-    public static  final String IMAGE_HEAD = "http://i1yqb.com/statics/uploads/";
+    public static int isClean = 0;
+    public static int isSecond = 0;//没有点击第二次操作
+    public static final String IMAGE_HEAD = "http://i1yqb.com/statics/uploads/";
+    public static int TAG = 0;
+    public static int isNEW = 0;
 }

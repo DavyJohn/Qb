@@ -16,16 +16,16 @@ import com.six.qiangbao.R;
 
 import org.w3c.dom.Text;
 
-import butterknife.Bind;
+import butterknife.BindView;
 
 /**
  * Created by 志浩 on 2016/6/22.
  */
 public class GraphicDetailsActivity extends BaseActivity {
 
-    @Bind(R.id.text_image_details)
+    @BindView(R.id.text_image_details)
     WebView mWebView;
-    @Bind(R.id.details_image_bar)
+    @BindView(R.id.details_image_bar)
     Toolbar mToolbar;
     private String conten;
     @Override

@@ -4,8 +4,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,23 +19,22 @@ import android.widget.Toast;
 
 import com.jayfang.dropdownmenu.DropDownMenu;
 import com.jayfang.dropdownmenu.OnMenuSelectedListener;
-import com.saint.netlibrary.APIService;
 import com.saint.netlibrary.ApiWrapper;
 import com.saint.netlibrary.model.CarList;
 import com.saint.netlibrary.model.ShopListData;
 import com.six.qiangbao.BaseFragment;
 import com.six.qiangbao.R;
-import com.six.qiangbao.ShopDetialActivity;
+import com.six.qiangbao.activitys.ShopDetialActivity;
 import com.six.qiangbao.activitys.MainActivity;
+import com.six.qiangbao.fragments.all.adapter.AllAdapter;
 import com.six.qiangbao.utils.DividerDecoration;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscription;
 import rx.functions.Action1;
@@ -44,15 +44,14 @@ import rx.functions.Action1;
  */
 public class AllFragment extends BaseFragment {
 
-
     private AllAdapter adapter;
-    @Bind(R.id.all_toolbar)
+    @BindView(R.id.all_toolbar)
     Toolbar toolbar;
-    @Bind(R.id.all_swipe)
+    @BindView(R.id.all_swipe)
     SwipeRefreshLayout mSwipe;
-    @Bind(R.id.all_recycler)
+    @BindView(R.id.all_recycler)
     RecyclerView mRecycler;
-    @Bind(R.id.dropMenu)
+    @BindView(R.id.dropMenu)
     DropDownMenu mMenu;
     private final String[] headers = new String[]{"全部分类", "最新"};
     private final String[] header_ten = new String[]{"十元专区", "最新"};
@@ -64,7 +63,8 @@ public class AllFragment extends BaseFragment {
     private List<ShopListData> listDatas = new ArrayList<>();
     private String menu1 = "list";
     private String menu2 =String.valueOf(40) ;
-    private int page = 0;
+    private int page = 1;
+    private int sum;
     private String id;
 
     @Nullable
@@ -80,11 +80,13 @@ public class AllFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView();
+
     }
 
     private void initView() {
-        initCatlist();
-        shopList();
+        //商品分类
+        catThread.run();
+        listThread.run();
         mSwipe.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
         mSwipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -97,7 +99,7 @@ public class AllFragment extends BaseFragment {
 
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecycler.addItemDecoration(new DividerDecoration(getActivity()));
+        mRecycler.addItemDecoration(new DividerDecoration(getActivity(),LinearLayoutManager.VERTICAL));
         mRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             boolean isSlidingTolast = false;
 
@@ -108,8 +110,13 @@ public class AllFragment extends BaseFragment {
                     int lastItem = manager.findLastCompletelyVisibleItemPosition();
                     int totalItemCount = manager.getItemCount();
                     if (lastItem == (totalItemCount - 1) && isSlidingTolast) {
-                        ++page;
-                        shopList();
+                        page++;
+                        if (page<=sum){
+                            shopList();
+                        }else {
+                            Toast.makeText(context,"没有数据",Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 }
                 super.onScrollStateChanged(recyclerView, newState);
@@ -138,6 +145,15 @@ public class AllFragment extends BaseFragment {
         });
     }
 
+    Thread catThread = new Thread(){
+        @Override
+        public void run() {
+            Message cat = new Message();
+            cat.what = 1;
+            handler.sendMessage(cat);
+        }
+    };
+
     /**
      * 商品分类
      */
@@ -165,7 +181,6 @@ public class AllFragment extends BaseFragment {
     }
 
     private void initDropMenu() {
-
         mMenu.setShowDivider(true);
         mMenu.setmMenuListBackColor(Color.WHITE);
         mMenu.setmMenuCount(2);//Menu的个数
@@ -209,29 +224,58 @@ public class AllFragment extends BaseFragment {
     private void shopList() {
         String cat = menu1;//返回全部可更改
         String sel = menu2;//paixid
-        final int nextPage = page + 1;//有大问题
+        final int nextPage = page ;//有大问题
         final ApiWrapper wrapper = new ApiWrapper();
         Subscription subscription = wrapper.shopList(cat, sel, String.valueOf(nextPage))
                 .subscribe(newSubscriber(new Action1<List<ShopListData>>() {
                     @SuppressLint("LongLogTag")
                     @Override
                     public void call(List<ShopListData> shopListDatas) {
+                        if (shopListDatas != null ){
+                            sum = Integer.parseInt(shopListDatas.get(0).sum);
                             listDatas.clear();
                             mSwipe.setRefreshing(false);
                             adapter.addData(shopListDatas);
                             listDatas.addAll(shopListDatas);
-                            for (int i = 0; i < shopListDatas.size(); i++) {
-                                String text = shopListDatas.get(0).page;
-                                Log.e("AllFragment==============",text);
-                                if (text.equals(null)){
-                                    Toast.makeText(getActivity(),"没有更多的数据了...",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
+                        }
                     }
                 }));
         mCompositeSubscription.add(subscription);
     }
 
+    Thread listThread = new Thread(){
+        @Override
+        public void run() {
+            Message m = new Message();
+            m.what = 0;
+            handler.sendMessage(m);
+        }
+    };
 
+    Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    shopList();
+                    break;
+                case 1:
+                    initCatlist();
+                    break;
+
+            }
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    protected void lazyLoad() {
+
+    }
 }

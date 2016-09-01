@@ -17,17 +17,47 @@
             android:layout_gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-
-
     </android.support.v7.widget.Toolbar>
+
+
     <EditText
-        android:id="@+id/address_et"
+    android:id="@+id/sheng_et"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="输入省份;如“江苏省”"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"/>
+    <EditText
+        android:id="@+id/shi_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="输入详细收货地址"
+        android:hint="输入市：如“南京市”"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"/>
+    <EditText
+        android:id="@+id/xian_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入县或区：如“玄武区”"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+    <EditText
+        android:id="@+id/jiedao_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入具体地址：“这里小区那里幢505室”"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="邮编"
+        android:id="@+id/youbian"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/cart_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/main">
+                                       android:id="@+id/cart_toolbar"
+                                       android:layout_width="match_parent"
+                                       android:layout_height="?attr/actionBarSize"
+                                       android:background="@color/main">
 
         <TextView
             android:layout_width="wrap_content"
@@ -16,14 +18,63 @@
             android:gravity="center"
             android:text="@string/cart_tab_name"
             android:textColor="@color/white"
-            android:textSize="@dimen/action_bar_title" />
+            android:textSize="@dimen/action_bar_title"/>
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/cart_swip"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="2"/>
-</FrameLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cart_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"/>
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/lay_cart_total"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="共多少商品"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:id="@+id/cart_count"
+            android:layout_alignBaseline="@+id/button"
+            android:layout_alignBottom="@+id/button"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计"
+            android:id="@+id/cart_total"
+            android:layout_marginLeft="42dp"
+            android:layout_marginStart="42dp"
+            android:layout_alignBaseline="@+id/cart_count"
+            android:layout_alignBottom="@+id/cart_count"
+            android:layout_toRightOf="@+id/cart_count"
+            android:layout_toEndOf="@+id/cart_count"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/lin2_shape"
+            android:text="结算"
+            android:textColor="@color/white"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/button"/>
+
+    </RelativeLayout>
+</LinearLayout>

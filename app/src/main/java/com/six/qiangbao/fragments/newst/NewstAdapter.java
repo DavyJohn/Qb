@@ -1,6 +1,7 @@
 package com.six.qiangbao.fragments.newst;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +12,13 @@ import android.widget.TextView;
 import com.saint.netlibrary.model.ListItemsData;
 import com.six.qiangbao.R;
 import com.six.qiangbao.utils.ConstantUtil;
+import com.six.qiangbao.utils.DensityUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -53,8 +55,8 @@ public class NewstAdapter extends RecyclerView.Adapter<NewstAdapter.ViewHolder> 
         holder.mTextUser.setText(listdata.get(position).q_user);
         holder.mTextPrice.setText("价值："+listdata.get(position).money);
         holder.mTextTime.setText("揭晓时间："+listdata.get(position).q_end_time);
-        Picasso.with(context).load(ConstantUtil.IMAGE_HEAD+listdata.get(position).userphoto).into(holder.mImageUser);
-        Picasso.with(context).load(ConstantUtil.IMAGE_HEAD+listdata.get(position).thumb).into(holder.imageShop);
+        Picasso.with(context).load(ConstantUtil.IMAGE_HEAD+listdata.get(position).userphoto).config(Bitmap.Config.RGB_565).resize(DensityUtil.dip2px(context,250),DensityUtil.dip2px(context,250)).centerCrop().into(holder.mImageUser);
+        Picasso.with(context).load(ConstantUtil.IMAGE_HEAD+listdata.get(position).thumb).config(Bitmap.Config.RGB_565).resize(DensityUtil.dip2px(context,250),DensityUtil.dip2px(context,250)).centerCrop().into(holder.imageShop);
         if (onItemClickListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -72,15 +74,15 @@ public class NewstAdapter extends RecyclerView.Adapter<NewstAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.latest_image)
+        @BindView(R.id.latest_image)
         ImageView imageShop;
-        @Bind(R.id.username)
+        @BindView(R.id.username)
         TextView mTextUser;
-        @Bind(R.id.latest_shop_price)
+        @BindView(R.id.latest_shop_price)
         TextView mTextPrice;
-        @Bind(R.id.latest_shop_time)
+        @BindView(R.id.latest_shop_time)
         TextView mTextTime;
-        @Bind(R.id.latest_user)
+        @BindView(R.id.latest_user)
         ImageView mImageUser;
 
         public ViewHolder(View itemView) {
