@@ -317,6 +317,4 @@ public class MineFragment extends BaseFragment {
                 }));
         mCompositeSubscription.add(subscription);
     }
-
-
 }
