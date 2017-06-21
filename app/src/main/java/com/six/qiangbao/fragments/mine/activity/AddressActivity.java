@@ -26,6 +26,7 @@ import com.saint.netlibrary.utils.ConstantUtil;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
 import com.six.qiangbao.fragments.mine.adapter.AddressAdapter;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.DividerDecoration;
 
 import org.json.JSONArray;
@@ -57,6 +58,7 @@ public class AddressActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.address_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setUptoolBar();
         initView();
         alladdress();

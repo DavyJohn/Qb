@@ -1,6 +1,7 @@
 package com.six.qiangbao.fragments.cart;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -30,12 +31,17 @@ import com.six.qiangbao.activitys.MainActivity;
 import com.six.qiangbao.activitys.PaymentActivity;
 import com.six.qiangbao.fragments.cart.adapter.CartAdapter;
 import com.six.qiangbao.utils.DividerDecoration;
+import com.six.qiangbao.utils.MyContentProvider;
 import com.six.qiangbao.utils.RealmTool;
 import com.six.qiangbao.utils.ShopCartData;
+import com.six.qiangbao.utils.SqliteTool;
 
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +57,6 @@ import rx.functions.Action1;
  */
 public class CartFragment extends BaseFragment implements View.OnClickListener {
 
-    private boolean isisPrepared;
     @BindView(R.id.lay_cart_total)
     RelativeLayout mLayout;
     @BindView(R.id.cart_count)
@@ -66,11 +71,10 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
     RecyclerView mRecycler;
     @BindView(R.id.button)
     Button mBtn;
-    private RealmList<ShopCartData> dataRealmList = new RealmList<ShopCartData>();
-    private Realm realm = Realm.getDefaultInstance();
+    private Cursor cursor;
+    private List<ShopCartData> list = new ArrayList<>();
     private CartAdapter adapter;
-    private String id;
-
+    private static boolean isSuccess = true;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -85,6 +89,15 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initview();
+        cursor = getContext().getContentResolver().query(MyContentProvider.URI,null,null,null,null);
+        while (cursor.moveToNext()){
+            int initId = cursor.getInt(cursor.getColumnIndex("cartId"));
+            Log.e("initid====",initId+"");
+            int initNum = cursor.getInt(cursor.getColumnIndex("cartNumber"));
+            Log.e("initid====",initNum+"");
+            addcarnum(String.valueOf(initId),String.valueOf(initNum));
+        }
+
     }
 
     @Override
@@ -109,17 +122,25 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void data() {
-        final RealmResults<ShopCartData> realmResults = realm.where(ShopCartData.class).findAll();
-        dataRealmList.clear();
-        dataRealmList.addAll(realmResults);
-        if (dataRealmList.size() != 0){
+        //获取Sql 所有数据
+        cursor = getContext().getContentResolver().query(MyContentProvider.URI,null,null,null,null);
+        list.clear();
+        while (cursor.moveToNext()){
+            ShopCartData data = new ShopCartData();
+            data.setName(cursor.getString(cursor.getColumnIndex("cartName")));
+            data.setImage(cursor.getString(cursor.getColumnIndex("cartImage")));
+            data.setId(String.valueOf(cursor.getInt(cursor.getColumnIndex("cartId"))));
+            data.setGonum(String.valueOf(cursor.getInt(cursor.getColumnIndex("cartNumber"))));
+            data.setMoney(String.valueOf(cursor.getInt(cursor.getColumnIndex("goodMoney"))));
+            list.add(data);
+        }
+        if (list.size() != 0){
             int count = 0;
             int total = 0;
             mLayout.setVisibility(View.VISIBLE);
-            for (int i= 0;i<dataRealmList.size();i++){
-                int s1 = Integer.parseInt(dataRealmList.get(i).getGonum());
-                int s2 = (int) Double.parseDouble(dataRealmList.get(i).getMoney());
-                System.out.print(s2);
+            for (int i= 0;i<list.size();i++){
+                int s1 = Integer.parseInt(list.get(i).getGonum());
+                int s2 = (int) Double.parseDouble(list.get(i).getMoney());
                 count = count+s1;
                 total = total+s1*s2;
             }
@@ -130,43 +151,36 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
         }
         if (mSwip.isRefreshing()) mSwip.setRefreshing(false);
         mRecycler.setAdapter(adapter);
-        adapter.data(dataRealmList);
-        if (mSwip.isRefreshing())mSwip.setRefreshing(true);
+        adapter.sqlData(list);
+
         adapter.setOnAddClickListener(new CartAdapter.OnAddClickListener() {
             @Override
             public void OnAddClick(View view, int postion,TextView text) {
-                realm.beginTransaction();
-                RealmResults<ShopCartData> results = realm.where(ShopCartData.class).equalTo("id", dataRealmList.get(postion).getId()).findAll();
-                id = results.get(0).getId();
-                if (results.size() != 0) {
-                    results.get(0).setGonum(String.valueOf(Integer.parseInt(results.get(0).getGonum()) + 1));
-                    addcarnum(id,String.valueOf(Integer.parseInt(results.get(0).getGonum())));
+                SqliteTool.getInstance().addData(list.get(postion).getName(),list.get(postion).getImage(),Integer.parseInt(list.get(postion).getGonum())
+                        ,Integer.parseInt(list.get(postion).getId()),list.get(postion).getMoney(),getActivity());
+                data();//更新数据
+                int num = Integer.parseInt(list.get(postion).getGonum());
+                addcarnum(String.valueOf(list.get(postion).getId()),String.valueOf(num));
 
-                }
-                realm.commitTransaction();
-                data();
             }
 
         });
-
         adapter.setOnRemoveClickListener(new CartAdapter.OnRemoveClickListener() {
             @Override
-            public void OnRemoveClick(View view, int postion) {
-                realm.beginTransaction();
-                final RealmResults<ShopCartData> results = realm.where(ShopCartData.class).equalTo("id", dataRealmList.get(postion).getId()).findAll();
-                id = results.get(0).getId();
-//
-                if (results.size() != 0) {
-                    if (String.valueOf(Integer.parseInt(results.get(0).getGonum()) ) == String.valueOf(1)) {
-                            Toast.makeText(getActivity(),"删除商品",Toast.LENGTH_SHORT).show();
-//                            delcart(id);
-                    } else {
-                        results.get(0).setGonum(String.valueOf(Integer.parseInt(results.get(0).getGonum()) - 1));
-                        addcarnum(id,String.valueOf(Integer.parseInt(results.get(0).getGonum())));
-                    }
+            public void OnRemoveClick(View view, int postion,TextView text) {
+                SqliteTool.getInstance().subData(Integer.parseInt(list.get(postion).getId()),getActivity());
+                String goodId = list.get(postion).getId();
+                data();//更新数据
+                int testNum =Integer.parseInt(text.getText().toString())-1;
+                Log.e("测试数据testNum=",testNum+"'");
+                if (list.size() != 0&& testNum != 0){
+                    int num = Integer.parseInt(list.get(postion).getGonum());
+                    addcarnum(String.valueOf(list.get(postion).getId()),String.valueOf(num));
+                }else if (list.size() == 0 || testNum == 0 ){
+                    delcart(goodId);
+                    SqliteTool.getInstance().deleteData(Integer.parseInt(goodId),getActivity());
+                    data();
                 }
-                realm.commitTransaction();
-                data();
             }
         });
     }
@@ -191,7 +205,7 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
                     public void call(AddShopCarResult addShopCarResult) {
                         System.out.print(addShopCarResult);
                         if (addShopCarResult.getCode() == String.valueOf(0)) {
-                            Toast.makeText(context, "加入成功", Toast.LENGTH_SHORT).show();
+                            isSuccess = true;
                         }
                     }
                 }));
@@ -199,6 +213,7 @@ public class CartFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void delcart(String id){
+        Log.e("delcart======id",id);
         final ApiWrapper wrapper = new ApiWrapper();
         Subscription subscription = wrapper.delcart(id)
                 .subscribe(newSubscriber(new Action1<DelCartItemResult>() {

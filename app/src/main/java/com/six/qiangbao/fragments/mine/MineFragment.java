@@ -112,7 +112,6 @@ public class MineFragment extends BaseFragment {
         textlist.clear();
         mRecycler.setHasFixedSize(true);
         mRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        mRecycler.addItemDecoration(new DividerDecoration(getActivity(),LinearLayoutManager.VERTICAL));
         for (int i = 0;i<text.length;i++){
             iconlist.add(icon[i]);
         }
@@ -278,6 +277,7 @@ public class MineFragment extends BaseFragment {
         if (item.getItemId() == R.id.setting){
             Intent intent = new Intent(getActivity(), SettingActivity.class);
             startActivity(intent);
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -306,7 +306,7 @@ public class MineFragment extends BaseFragment {
                     @Override
                     public void call(Mine mine) {
                         System.out.print(mine);
-                        if (mine.getUid().equals(null)){
+                        if (mine.getUid() == null){
                             ConstantUtil.isMineChange = 0;
                         }else {
                             ConstantUtil.isMineChange = 1;

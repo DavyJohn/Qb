@@ -32,9 +32,11 @@ import com.six.qiangbao.R;
 import com.six.qiangbao.fragments.all.activity.AllRecordActivity;
 import com.six.qiangbao.fragments.all.activity.GraphicDetailsActivity;
 import com.six.qiangbao.fragments.all.activity.QbHistoryActivity;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.ConstantUtil;
 import com.six.qiangbao.utils.DateUtil;
 import com.six.qiangbao.utils.RealmTool;
+import com.six.qiangbao.utils.SqliteTool;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -104,13 +106,14 @@ public class ShopDetialActivity extends BaseActivity  {
         //先将商品放到购物车再跳转到 购物车界面
         ConstantUtil.isNEW = 1;
         addAnimation(mImage);
-        RealmTool.getInstance().realmdata(data.getItem(),String.valueOf(1));
+        SqliteTool.getInstance().addData(data.getItem().title,data.getItem().thumb,1,Integer.parseInt(data.getItem().id),data.getItem().yunjiage,mContext);
+//        RealmTool.getInstance().realmdata(data.getItem(),String.valueOf(1));
     }
 
     @OnClick(R.id.guwu_btn) void joincar(){
         ConstantUtil.isNEW = 0;
         addAnimation(mImage);
-        RealmTool.getInstance().realmdata(data.getItem(),String.valueOf(1));
+        SqliteTool.getInstance().addData(data.getItem().title,data.getItem().thumb,1,Integer.parseInt(data.getItem().id),data.getItem().yunjiage,mContext);
     }
 
     @OnClick(R.id.guwu_image) void carImage(){
@@ -127,6 +130,7 @@ public class ShopDetialActivity extends BaseActivity  {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_detial_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setUpToolBar();
         id = getIntent().getStringExtra("shop_id");
         sid = getIntent().getStringExtra("sid");

@@ -31,6 +31,7 @@ import com.saint.netlibrary.model.Avatar;
 import com.saint.netlibrary.model.Mine;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.ConstantUtil;
 import com.soundcloud.android.crop.Crop;
 import com.squareup.picasso.Picasso;
@@ -119,6 +120,7 @@ public class PersionalInfoActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.persional_info_layout);
+        AppManager.getAppManager().addActivity(mContext);
         initbar();
         destinationUri = Uri.fromFile(new File(getCacheDir(), "crop"));
     }

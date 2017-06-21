@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.saint.netlibrary.model.Login;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.utils.AppManager;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +33,7 @@ public class GraphicDetailsActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.graphic_details_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setUpToolbar();
         initWebView();
     }

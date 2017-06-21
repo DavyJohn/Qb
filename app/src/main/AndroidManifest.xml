@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.six.qiangbao">
 
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_SMS" />
@@ -135,6 +136,10 @@
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
         <activity android:name=".activitys.PaymentActivity"/>
         <activity android:name=".activitys.PaymentHbActivity"/>
+        //数据库
+        <provider
+            android:authorities="com.six.qiangbao.utils.MyContentProvider"
+            android:name=".utils.MyContentProvider"/>
     </application>
 
 </manifest>

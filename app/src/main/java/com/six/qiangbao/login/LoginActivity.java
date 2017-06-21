@@ -1,5 +1,7 @@
 package com.six.qiangbao.login;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +14,10 @@ import android.webkit.CookieSyncManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -23,6 +29,7 @@ import com.saint.netlibrary.model.Login;
 import com.saint.netlibrary.model.Mine;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.AsyncHttpCilentUtil;
 import com.six.qiangbao.utils.ConstantUtil;
 
@@ -96,7 +103,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
                             //登陆失败
                             ConstantUtil.isMineChange = 0;
                         }
-                        System.out.print(text);
+
                     }
                 }));
         mCompositeSubscription.add(subscription);
@@ -125,6 +132,7 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        AppManager.getAppManager().addActivity(mContext);
         setUpToolBar();
     }
 
@@ -135,10 +143,15 @@ public class LoginActivity extends BaseActivity implements PlatformActionListene
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+             AppManager.getAppManager().AppExit(mContext);
+                System.exit(0);//有问题带纠正
+
             }
         });
     }
+
+
+
 
     @Override
     public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {

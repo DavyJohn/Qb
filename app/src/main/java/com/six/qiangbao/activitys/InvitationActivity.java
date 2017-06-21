@@ -12,6 +12,7 @@ import android.widget.EditText;
 import com.saint.netlibrary.ApiWrapper;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.utils.AppManager;
 
 import butterknife.BindView;
 import rx.Subscription;
@@ -31,6 +32,7 @@ public class InvitationActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppManager.getAppManager().addActivity(mContext);
         setContentView(R.layout.invitation_main_layout);
         setupbar();
     }

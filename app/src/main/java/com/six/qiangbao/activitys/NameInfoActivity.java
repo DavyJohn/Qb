@@ -13,6 +13,7 @@ import com.saint.netlibrary.ApiWrapper;
 import com.saint.netlibrary.model.ChangeNameResultInfo;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.utils.AppManager;
 
 import butterknife.BindView;
 import rx.Subscription;
@@ -32,6 +33,7 @@ public class NameInfoActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.name_info_layout);
+        AppManager.getAppManager().addActivity(mContext);
         initbar();
 
     }

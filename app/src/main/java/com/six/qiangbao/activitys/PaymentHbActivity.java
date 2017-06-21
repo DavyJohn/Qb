@@ -15,6 +15,7 @@ import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
 import com.six.qiangbao.fragments.cart.adapter.PaymentHbAdapter;
 import com.six.qiangbao.fragments.mine.adapter.HongBaoAdapter;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.ConstantUtil;
 import com.six.qiangbao.utils.DividerDecoration;
 
@@ -42,6 +43,7 @@ public class PaymentHbActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_hb_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         order_money = getIntent().getDoubleExtra("order_money",0);
         initview();
         mToolbar.setTitle("");

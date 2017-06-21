@@ -17,6 +17,7 @@ import com.six.qiangbao.fragments.newst.NewFragment;
 import com.six.qiangbao.fragments.all.AllFragment;
 import com.six.qiangbao.fragments.main.MainFragment;
 import com.six.qiangbao.fragments.mine.MineFragment;
+import com.six.qiangbao.utils.AppManager;
 
 import butterknife.BindView;
 
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppManager.getAppManager().addActivity(mContext);
         initViews();
         
     }

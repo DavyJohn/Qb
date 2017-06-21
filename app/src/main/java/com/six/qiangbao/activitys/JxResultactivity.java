@@ -18,6 +18,7 @@ import com.saint.netlibrary.model.WqGoods;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
 import com.six.qiangbao.fragments.all.activity.AllRecordActivity;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.ConstantUtil;
 import com.six.qiangbao.utils.DateUtil;
 import com.squareup.picasso.Picasso;
@@ -105,6 +106,7 @@ public class JxResultactivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.results_revealed_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         toolbar();
         url = getIntent().getStringExtra("url");
     }

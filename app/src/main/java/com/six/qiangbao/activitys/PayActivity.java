@@ -18,6 +18,7 @@ import com.saint.netlibrary.ApiWrapper;
 import com.saint.netlibrary.model.RechargeData;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.BillUtils;
 
 import java.util.Date;
@@ -192,6 +193,7 @@ public class PayActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         toolbar();
 
     }

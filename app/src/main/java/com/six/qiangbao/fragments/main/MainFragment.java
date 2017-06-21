@@ -4,12 +4,14 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Path;
 import android.graphics.PathMeasure;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.design.widget.AppBarLayout;
 
 import android.support.design.widget.CoordinatorLayout;
@@ -46,6 +48,7 @@ import com.six.qiangbao.utils.ConstantUtil;
 import com.six.qiangbao.utils.DividerDecoration;
 import com.six.qiangbao.utils.RealmTool;
 import com.six.qiangbao.utils.ShopCartData;
+import com.six.qiangbao.utils.SqliteTool;
 import com.six.qiangbao.widgit.banner.BannerView;
 import com.squareup.picasso.Picasso;
 
@@ -185,6 +188,8 @@ public class MainFragment extends BaseFragment   {
                 addcar(postion);
                 addcaran(postion,image);
                 RealmTool.getInstance().realmdata(list.get(postion),String.valueOf(1));
+                //sqlite数据库
+                SqliteTool.getInstance().addData(list.get(postion).title,list.get(postion).thumb,1,Integer.parseInt(list.get(postion).id),list.get(postion).yunjiage,getContext());
             }
         });
 

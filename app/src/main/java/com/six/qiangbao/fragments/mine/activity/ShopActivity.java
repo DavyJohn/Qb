@@ -11,6 +11,7 @@ import com.saint.netlibrary.ApiWrapper;
 import com.saint.netlibrary.model.MyQbJu;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.utils.AppManager;
 
 import butterknife.BindView;
 import rx.Subscription;
@@ -30,6 +31,7 @@ public class ShopActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setUpToolBar();
         start = String.valueOf(0);
         data();

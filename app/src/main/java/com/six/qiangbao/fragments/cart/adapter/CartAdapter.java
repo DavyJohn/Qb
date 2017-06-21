@@ -14,6 +14,9 @@ import com.six.qiangbao.utils.ConstantUtil;
 import com.six.qiangbao.utils.ShopCartData;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.RealmList;
@@ -25,15 +28,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     private Context context;
     private LayoutInflater inflater;
-    private RealmList<ShopCartData> data = new RealmList<ShopCartData>();
+    private List<ShopCartData> dataList = new ArrayList<>();
     public CartAdapter(Context context){
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
-
-    public void data(RealmList<ShopCartData> list){
-        data.clear();
-        data.addAll(list);
+    public void sqlData(List<ShopCartData> list){
+        dataList.clear();
+        dataList.addAll(list);
         notifyDataSetChanged();
     }
     @Override
@@ -45,9 +47,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Picasso.with(context).load(ConstantUtil.IMAGE_HEAD+data.get(position).getImage()).into(holder.image);
-        holder.mTextAcount.setText(data.get(position).getGonum());
-        holder.mTvName.setText(data.get(position).getName());
+        Picasso.with(context).load(ConstantUtil.IMAGE_HEAD+dataList.get(position).getImage()).into(holder.image);
+        holder.mTextAcount.setText(dataList.get(position).getGonum());
+        holder.mTvName.setText(dataList.get(position).getName());
 
         if (onAddClickListener !=null){
             holder.add.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +64,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
             holder.remove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onRemoveClickListener.OnRemoveClick(holder.remove,position);
+                    onRemoveClickListener.OnRemoveClick(holder.remove,position,holder.mTextAcount);
                 }
             });
         }
@@ -72,7 +74,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return dataList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -103,7 +105,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     }
 
     public interface OnRemoveClickListener{
-        void OnRemoveClick(View view,int postion);
+        void OnRemoveClick(View view,int postion,TextView text);
     }
 
     public OnRemoveClickListener onRemoveClickListener;

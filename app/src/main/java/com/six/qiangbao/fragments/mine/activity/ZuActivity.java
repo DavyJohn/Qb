@@ -15,6 +15,7 @@ import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
 import com.six.qiangbao.fragments.mine.fragment.ZuRightFragment;
 import com.six.qiangbao.fragments.mine.fragment.ZuleftFragment;
+import com.six.qiangbao.utils.AppManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class ZuActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.zu_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setupToolBar();
         initdata();
         fragmentPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {

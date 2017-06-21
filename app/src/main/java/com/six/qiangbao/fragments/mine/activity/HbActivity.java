@@ -16,6 +16,7 @@ import com.six.qiangbao.R;
 import com.six.qiangbao.fragments.mine.fragment.HboneFragment;
 import com.six.qiangbao.fragments.mine.fragment.HbthreeFragment;
 import com.six.qiangbao.fragments.mine.fragment.HbtwoFragment;
+import com.six.qiangbao.utils.AppManager;
 
 import org.w3c.dom.Text;
 
@@ -64,6 +65,7 @@ public class HbActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.hb_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         initData();
         setUpToolbar();
     }

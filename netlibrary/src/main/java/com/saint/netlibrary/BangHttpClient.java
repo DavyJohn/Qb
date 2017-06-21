@@ -146,7 +146,6 @@ public class BangHttpClient {
                     return null;
                 }
             };
-
             ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(),new SharedPrefsCookiePersistor(context));
             File cacheFile = new File(context.getCacheDir(),"httpcache");
             Cache cache = new Cache(cacheFile,1024*1024*10);//10M缓存

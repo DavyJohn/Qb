@@ -13,6 +13,7 @@ import com.saint.netlibrary.model.GoodsQbJuData;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
 import com.six.qiangbao.fragments.all.adapter.AllRecordAdapter;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.DividerDecoration;
 
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class AllRecordActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_record_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setupToolbar();
         id = getIntent().getStringExtra("goods_id");
         initData();

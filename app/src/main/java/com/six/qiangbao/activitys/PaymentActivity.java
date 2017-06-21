@@ -1,6 +1,7 @@
 package com.six.qiangbao.activitys;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,8 +18,12 @@ import com.saint.netlibrary.model.DelCartItemResult;
 import com.saint.netlibrary.model.PayForResultData;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.login.LoginActivity;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.BillUtils;
 import com.six.qiangbao.utils.ConstantUtil;
+import com.six.qiangbao.utils.MyContentProvider;
+import com.six.qiangbao.utils.MyDatabaseHelper;
 import com.six.qiangbao.utils.ShopCartData;
 
 
@@ -228,6 +233,7 @@ public class PaymentActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationIcon(R.drawable.left_icon);
@@ -248,6 +254,10 @@ public class PaymentActivity extends BaseActivity {
                     @Override
                     public void call(PayForResultData payForResultData) {
                         System.out.print(payForResultData);
+                        if (payForResultData.getMoneyCount() == null){
+                            Intent intent = new Intent(PaymentActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
                         mText.setText(String.valueOf(payForResultData.getMoneyCount())+"抢宝币");
                         order_money = payForResultData.getMoneyCount();
                         submitcode =  payForResultData.getSubmitcode();
@@ -268,6 +278,8 @@ public class PaymentActivity extends BaseActivity {
                     public void call(DelCartItemResult delCartItemResult) {
                         System.out.print(delCartItemResult);
                         if (delCartItemResult.getCode() == String.valueOf(0)){
+                            MyDatabaseHelper helper = new MyDatabaseHelper(mContext);
+                            helper.getWritableDatabase().delete("crats",null,null);
                             final RealmResults<ShopCartData> results = realm.where(ShopCartData.class).findAll();
                             realm.executeTransaction(new Realm.Transaction() {
                                 @Override

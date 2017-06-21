@@ -24,6 +24,7 @@ import com.saint.netlibrary.utils.TokenUntil;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
 import com.six.qiangbao.sms.ReadSmsContent;
+import com.six.qiangbao.utils.AppManager;
 
 
 import butterknife.BindView;
@@ -74,6 +75,7 @@ public class RegisterActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setUpToolbar();
         initdata();
 

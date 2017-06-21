@@ -20,6 +20,7 @@ import com.saint.netlibrary.utils.ConstantUtil;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
 import com.six.qiangbao.sms.ReadSmsContent;
+import com.six.qiangbao.utils.AppManager;
 
 
 import butterknife.BindView;
@@ -57,6 +58,7 @@ public class RegisterCodeActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_code_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setUpToolbar();
         getCode(ConstantUtil.CHECK_CODE);
 //        timeCountDown();

@@ -37,7 +37,7 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
     private Context context;
     private String phone, imageurl, experience, level, balance, name;
 
-    public MineAdapter(Context context, List listte, List listic) {
+    public MineAdapter(Context context, List<String> listte, List<Integer> listic) {
         this.context = context;
         this.icon = listic;
         this.text = listte;
@@ -108,7 +108,7 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
             holder.mTextMoney.setText(balance);
             holder.mTextLevel.setText(level);
             holder.mTextEx.setText("经验：" + experience);
-            if (name.equals("")) {
+            if (name==null) {
                 holder.mTextUserName.setText(phone);
             } else {
                 holder.mTextUserName.setText(name);
@@ -143,9 +143,11 @@ public class MineAdapter extends RecyclerView.Adapter<MineAdapter.ViewHolder> {
 
         } else if (position == 7) {
             holder.mTextEnd.setText("本公司拥有一切解释权");
-        } else {
+        } else  if (position>0&&position<7){
             holder.mTextContent.setText(text.get(position - 1));
             Picasso.with(context).load(icon.get(position - 1)).into(holder.mImageNormal);
+        }else if (position == 0&&ConstantUtil.isMineChange == 0){
+            //可省略
         }
 
     }

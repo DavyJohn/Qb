@@ -11,6 +11,7 @@ import com.saint.netlibrary.ApiWrapper;
 import com.saint.netlibrary.model.AddAddressSuccess;
 import com.six.qiangbao.BaseActivity;
 import com.six.qiangbao.R;
+import com.six.qiangbao.utils.AppManager;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -52,6 +53,7 @@ public class AddAddressActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_address_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setUpToolBar();
 
     }

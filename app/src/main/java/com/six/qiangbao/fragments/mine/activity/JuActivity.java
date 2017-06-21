@@ -16,6 +16,7 @@ import com.six.qiangbao.R;
 import com.six.qiangbao.fragments.mine.fragment.AllMineFragment;
 import com.six.qiangbao.fragments.mine.fragment.EdFragment;
 import com.six.qiangbao.fragments.mine.fragment.IngFragment;
+import com.six.qiangbao.utils.AppManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,7 @@ public class JuActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ju_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         setUpToolBar();
         initdata();
     }

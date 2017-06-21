@@ -18,6 +18,7 @@ import com.six.qiangbao.R;
 import com.six.qiangbao.activitys.JxResultactivity;
 import com.six.qiangbao.activitys.ShopDetialActivity;
 import com.six.qiangbao.fragments.all.adapter.QbHistoryAdapter;
+import com.six.qiangbao.utils.AppManager;
 import com.six.qiangbao.utils.ConstantUtil;
 import com.six.qiangbao.utils.DividerDecoration;
 import com.squareup.picasso.Picasso;
@@ -48,6 +49,7 @@ public class QbHistoryActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.qiangbao_history_main_layout);
+        AppManager.getAppManager().addActivity(mContext);
         id = getIntent().getStringExtra("id");
         setUpToolabr();
         initdata();
