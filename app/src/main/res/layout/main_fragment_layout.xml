@@ -31,7 +31,7 @@
                 android:textSize="@dimen/action_bar_title"/>
         </android.support.v7.widget.Toolbar>
 
-        <com.six.qiangbao.widgit.banner.BannerView
+        <com.six.qb.widgit.banner.BannerView
             android:id="@+id/bannerview"
             android:layout_width="match_parent"
             android:layout_height="150dp"

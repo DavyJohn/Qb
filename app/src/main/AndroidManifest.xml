@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.six.qiangbao">
+    package="com.six.qb">
 
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -28,7 +28,7 @@
 
     <application
         android:allowBackup="true"
-        android:name="com.six.qiangbao.BaseApplication"
+        android:name="com.six.qb.BaseApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -63,7 +63,7 @@
 
         //end
 
-        <activity android:name="com.six.qiangbao.activitys.MainActivity"
+        <activity android:name="com.six.qb.activitys.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -72,7 +72,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.six.qiangbao.login.LoginActivity">
+        <activity android:name="com.six.qb.login.LoginActivity">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN" />-->
 
@@ -102,44 +102,44 @@
         </activity>
 
         <activity
-            android:name="com.six.qiangbao.wxapi.WXEntryActivity"
+            android:name="com.six.qb.wxapi.WXEntryActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name=".fragments.mine.activity.JuActivity"
+        <activity android:name="com.six.qb.fragments.mine.activity.JuActivity"
             android:exported="true"/>
-        <activity android:name=".fragments.mine.activity.ShopActivity"
+        <activity android:name="com.six.qb.fragments.mine.activity.ShopActivity"
             android:exported="true"/>
-        <activity android:name=".fragments.mine.activity.ZuActivity"
+        <activity android:name="com.six.qb.fragments.mine.activity.ZuActivity"
             android:exported="true"/>
-        <activity android:name=".fragments.mine.activity.AddressActivity"
+        <activity android:name="com.six.qb.fragments.mine.activity.AddressActivity"
             android:exported="true"/>
-        <activity android:name=".fragments.mine.activity.HbActivity"
+        <activity android:name="com.six.qb.fragments.mine.activity.HbActivity"
             android:exported="true"/>
 
-        <activity android:name=".fragments.mine.activity.AddAddressActivity"
+        <activity android:name="com.six.qb.fragments.mine.activity.AddAddressActivity"
             android:exported="true"/>
-        <activity android:name=".fragments.mine.activity.SettingActivity"
+        <activity android:name="com.six.qb.fragments.mine.activity.SettingActivity"
             android:exported="true"/>
-        <activity android:name=".login.RegisterActivity"
+        <activity android:name="com.six.qb.login.RegisterActivity"
             android:exported="true"/>
-        <activity android:name=".activitys.ShopDetialActivity"/>
-        <activity android:name=".fragments.all.activity.AllRecordActivity"/>
-        <activity android:name=".fragments.newst.ResultsRevealedActivity"/>
-        <activity android:name=".fragments.all.activity.GraphicDetailsActivity"/>
-        <activity android:name=".fragments.all.activity.QbHistoryActivity"/>
-        <activity android:name=".login.RegisterCodeActivity"/>
-        <activity android:name=".activitys.JxResultactivity"/>
-        <activity android:name=".activitys.InvitationActivity"/>
-        <activity android:name=".activitys.PayActivity"/>
-        <activity android:name=".activitys.PersionalInfoActivity"/>
-        <activity android:name=".activitys.NameInfoActivity"/>
+        <activity android:name="com.six.qb.activitys.ShopDetialActivity"/>
+        <activity android:name="com.six.qb.fragments.all.activity.AllRecordActivity"/>
+        <activity android:name="com.six.qb.fragments.newst.ResultsRevealedActivity"/>
+        <activity android:name="com.six.qb.fragments.all.activity.GraphicDetailsActivity"/>
+        <activity android:name="com.six.qb.fragments.all.activity.QbHistoryActivity"/>
+        <activity android:name="com.six.qb.login.RegisterCodeActivity"/>
+        <activity android:name="com.six.qb.activitys.JxResultactivity"/>
+        <activity android:name="com.six.qb.activitys.InvitationActivity"/>
+        <activity android:name="com.six.qb.activitys.PayActivity"/>
+        <activity android:name="com.six.qb.activitys.PersionalInfoActivity"/>
+        <activity android:name="com.six.qb.activitys.NameInfoActivity"/>
         <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
-        <activity android:name=".activitys.PaymentActivity"/>
-        <activity android:name=".activitys.PaymentHbActivity"/>
+        <activity android:name="com.six.qb.activitys.PaymentActivity"/>
+        <activity android:name="com.six.qb.activitys.PaymentHbActivity"/>
         //数据库
         <provider
-            android:authorities="com.six.qiangbao.utils.MyContentProvider"
-            android:name=".utils.MyContentProvider"/>
+            android:authorities="com.six.qb.utils.MyContentProvider"
+            android:name="com.six.qb.utils.MyContentProvider"/>
     </application>
 
 </manifest>
